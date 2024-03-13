@@ -1,0 +1,1441 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="mqtt, wflin 的博客">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="mqtt
+遥测传输协议，基于发布和订阅的轻量级通讯协议，构建在 tcp/ip 协议之上
+标准版，简化版 （MQTT-SN）。
+
+优点：
+用极少代码和有限带宽，为远程设备提供实时可靠的消息服务。
+
+开销低，带宽占用低。
+
+基于 客户端-服务器">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>mqtt | wflin 的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/lightgallery/1.6.12/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">wflin 的博客</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/AV" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>视听</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/AV" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>视听</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">wflin 的博客</div>
+        <div class="logo-desc">
+            
+            一只野生程序员
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/AV" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                视听
+            </a>
+        </li>
+        
+        <li>
+            <a href="/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/AV" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        视听
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/wflin-linux" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        mqtt
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/iot/" target="_blank">
+                                <span class="chip bg-color">iot</span>
+                            </a>
+                        
+                            <a href="/tags/mqtt/" target="_blank">
+                                <span class="chip bg-color">mqtt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/iot/" class="post-category" target="_blank">
+                                iot
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-09-01
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        wflin
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        7 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="mqtt"><a href="#mqtt" class="headerlink" title="mqtt"></a>mqtt</h2><ul>
+<li>遥测传输协议，基于发布和订阅的轻量级通讯协议，构建在 tcp/ip 协议之上</li>
+<li>标准版，简化版 （MQTT-SN）。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li><p>用极少代码和有限带宽，为远程设备提供实时可靠的消息服务。</p>
+</li>
+<li><p>开销低，带宽占用低。</p>
+</li>
+<li><p>基于 客户端-服务器。</p>
+</li>
+</ul>
+<h2 id="工作模式："><a href="#工作模式：" class="headerlink" title="工作模式："></a>工作模式：</h2><ul>
+<li>提供一对多消息分发模式，实现应用程序解耦</li>
+<li>消息传递模式，消息不是直接发送到接收点，而是由 mqtt-server（MQTT-Broke） 分发</li>
+</ul>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><img src="/mqtt/v2-17b8d17ca2318b951ca48539f04306f7_720w.webp">
+
+<h2 id="QoS："><a href="#QoS：" class="headerlink" title="QoS："></a>QoS：</h2><ul>
+<li>QoS0: 会发送消息丢失或重复，消息发布依赖于底层TCP/IP网络。</li>
+<li>QoS1: 消息至少一次传送给订阅者</li>
+<li>QoS2：保证消息仅传送到目的地一次。为此，带有唯一消息 ID 的消息会存储两次，首先来自发送者，然后是接收者。QoS 级别 2 在网络中具有最高的开销，因为在发送方和接收方之间需要两个流。</li>
+</ul>
+<h2 id="数据包："><a href="#数据包：" class="headerlink" title="数据包："></a>数据包：</h2><ul>
+<li><p><code>固定头（Fixed header）</code>，存在于所有<code>MQTT</code>数据包中，表示数据包类型及数据包的分组类标识；</p>
+</li>
+<li><p><code>可变头（Variable header）</code>，存在于部分<code>MQTT</code>数据包中，数据包类型决定了可变头是否存在及其具体内容；</p>
+</li>
+<li><p><code>消息体（Payload）</code>，存在于部分<code>MQTT</code>数据包中，表示客户端收到的具体内容；</p>
+<img src="/mqtt/v2-861c089bea9570876bb13a031e6c3902_720w.webp">
+
+</li>
+</ul>
+<h2 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h2><ul>
+<li><h3 id="Mosquitto"><a href="#Mosquitto" class="headerlink" title="Mosquitto"></a>Mosquitto</h3></li>
+<li><h3 id="EMQ-X"><a href="#EMQ-X" class="headerlink" title="EMQ X"></a>EMQ X</h3></li>
+<li><h3 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h3></li>
+<li><h3 id="HiveMQ"><a href="#HiveMQ" class="headerlink" title="HiveMQ"></a>HiveMQ</h3></li>
+</ul>
+<h2 id="可视化工具"><a href="#可视化工具" class="headerlink" title="可视化工具"></a>可视化工具</h2><ul>
+<li>mqtt-x</li>
+</ul>
+<h3 id="搭建："><a href="#搭建：" class="headerlink" title="搭建："></a>搭建：</h3><h4 id="建立文件夹"><a href="#建立文件夹" class="headerlink" title="建立文件夹"></a>建立文件夹</h4><ul>
+<li>mkdir -p ./mosquitto/config</li>
+<li>mkdir -p ./mosquitto/data</li>
+<li>mkdir -p ./mosquitto/log</li>
+</ul>
+<h4 id="目录设置权限"><a href="#目录设置权限" class="headerlink" title="目录设置权限"></a>目录设置权限</h4><ul>
+<li>chmod -R 755 ./mosquitto</li>
+<li>chmod -R 777 /mosquitto/log #日志目录要最大权限</li>
+</ul>
+<h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><ul>
+<li><p>vi /mosquitto/config/mosquitto.conf</p>
+<pre class="line-numbers language-shell"><code class="language-shell">persistence true
+persistence_location /mosquitto/data
+log_dest file /mosquitto/log/mosquitto.log
+
+#监听端口默认是 9001，我的9001被占用所以我选择9002
+listener 9002
+##通信端口
+port 1883
+## 关闭匿名模式
+allow_anonymous false
+## 指定密码文件
+password_file /mosquitto/config/pwfile.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h4><p>docker-compose.yaml</p>
+<pre class="line-numbers language-shell"><code class="language-shell">version: "3" 
+services:
+    mqtt:
+        image: eclipse-mosquitto:2 
+        container_name: mqtt
+        privileged: true 
+        ports: 
+            - 1883:1883
+            - 9002:9001
+        volumes:
+            - ./mosquitto/config:/mosquitto/config
+            - ./mosquitto/data:/mosquitto/data
+            - ./mosquitto/log:/mosquitto/log
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="进入容器执行"><a href="#进入容器执行" class="headerlink" title="进入容器执行"></a>进入容器执行</h4><ul>
+<li><p>创建密码管理文件</p>
+<p>touch /mosquitto/config/pwfile.conf</p>
+<p>chmod -R 755 /mosquitto/config/pwfile.conf</p>
+</li>
+<li><p>创建用户名和密码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mosquitto_passwd -b /mosquitto/config/pwfile.conf admin admin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>注意</code>：创建新用户之后都要重启容器重新加载配置文件，不然就会报没有认证</p>
+</li>
+</ul>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><ul>
+<li>{% asset_img image-20230504162948660.png image-20230504162948660 %}
+</li>
+<li><p>界面信息说明</p>
+</li>
+<li>{% asset_img image-20230504163115396.png image-20230504163115396 %}
+
+</li>
+</ul>
+<h3 id="日志："><a href="#日志：" class="headerlink" title="日志："></a>日志：</h3><ul>
+<li>{% asset_img image-20230504163431942.png image-20230504163431942 %}
+
+</li>
+</ul>
+<h2 id="开源框架"><a href="#开源框架" class="headerlink" title="开源框架"></a>开源框架</h2><h3 id="SpringBoot-整合"><a href="#SpringBoot-整合" class="headerlink" title="SpringBoot 整合"></a>SpringBoot 整合</h3><ul>
+<li><p>博客：<a href="https://blog.csdn.net/f4233441/article/details/121829743" target="_blank" rel="noopener">https://blog.csdn.net/f4233441/article/details/121829743</a></p>
+</li>
+<li><p>pom</p>
+<pre class="line-numbers language-xml"><code class="language-xml">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.integration<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-integration-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-integration<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.integration<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-integration-stream<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.integration<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-integration-mqtt<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="第三方"><a href="#第三方" class="headerlink" title="第三方"></a>第三方</h3><ul>
+<li><p>Apollo</p>
+<p>太旧不推荐，</p>
+</li>
+<li><p>Paho </p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.eclipse.paho<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>org.eclipse.paho.client.mqttv3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>场景：就和一般情况下我们是通过mybatis组件模拟发送sql请求,mqtt消息模拟,我们可以通过Eclipse Paho Java Client组件。</p>
+</li>
+<li><p>对了一遍节前布置的代码，虽然效果满足，但是抽象和单一原则，多线程，异步方面基本没考虑，程哥指正有一些代码习惯的问题，编码优化上给了很多宝贵的建议。</p>
+</li>
+<li><p>自己在代码编码方面。对于方法的定位有点混淆。方法基本没法复用。</p>
+</li>
+<li><p>这两天重构一版出来</p>
+</li>
+</ul>
+<h2 id="代码实践"><a href="#代码实践" class="headerlink" title="代码实践"></a>代码实践</h2><h1 id="日报"><a href="#日报" class="headerlink" title="日报"></a>日报</h1><h3 id="引入pom"><a href="#引入pom" class="headerlink" title="引入pom"></a>引入pom</h3><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.eclipse.paho<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>org.eclipse.paho.client.mqttv3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
+<li>发布端</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>mqtt<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>MqttClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>MqttConnectOptions<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>MqttException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>MqttMessage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>persist<span class="token punctuation">.</span>MemoryPersistence<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ *发布端
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PublishSample</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        String topic <span class="token operator">=</span> <span class="token string">"test2"</span><span class="token punctuation">;</span>
+        String content <span class="token operator">=</span> <span class="token string">"hello mqtt"</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qos <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        String broker <span class="token operator">=</span> <span class="token string">"tcp://47.108.94.36:1883"</span><span class="token punctuation">;</span>
+        String userName <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">;</span>
+        String password <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">;</span>
+        String clientId <span class="token operator">=</span> <span class="token string">"pubClient"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 内存存储</span>
+        MemoryPersistence persistence <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryPersistence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建客户端</span>
+            MqttClient sampleClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MqttClient</span><span class="token punctuation">(</span>broker<span class="token punctuation">,</span> clientId<span class="token punctuation">,</span> persistence<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 创建链接参数</span>
+            MqttConnectOptions connOpts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MqttConnectOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 在重新启动和重新连接时记住状态</span>
+            connOpts<span class="token punctuation">.</span><span class="token function">setCleanSession</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置连接的用户名</span>
+            connOpts<span class="token punctuation">.</span><span class="token function">setUserName</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            connOpts<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span>password<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 建立连接</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接到 broker: "</span> <span class="token operator">+</span> broker<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            sampleClient<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>connOpts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接成功."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 创建消息</span>
+            MqttMessage message <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MqttMessage</span><span class="token punctuation">(</span>content<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置消息的服务质量</span>
+            message<span class="token punctuation">.</span><span class="token function">setQos</span><span class="token punctuation">(</span>qos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 发布消息</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"向"</span> <span class="token operator">+</span> topic <span class="token operator">+</span> <span class="token string">"发送消息:"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            sampleClient<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 断开连接</span>
+            sampleClient<span class="token punctuation">.</span><span class="token function">disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 关闭客户端</span>
+            sampleClient<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">MqttException</span> me<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"reason "</span> <span class="token operator">+</span> me<span class="token punctuation">.</span><span class="token function">getReasonCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"msg "</span> <span class="token operator">+</span> me<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"loc "</span> <span class="token operator">+</span> me<span class="token punctuation">.</span><span class="token function">getLocalizedMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"cause "</span> <span class="token operator">+</span> me<span class="token punctuation">.</span><span class="token function">getCause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"excep "</span> <span class="token operator">+</span> me<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            me<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>订阅端</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>mqtt<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>eclipse<span class="token punctuation">.</span>paho<span class="token punctuation">.</span>client<span class="token punctuation">.</span>mqttv3<span class="token punctuation">.</span>persist<span class="token punctuation">.</span>MemoryPersistence<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ *订阅端
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SubscribeSample</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//EMQ X 默认端口 1883</span>
+        String broker <span class="token operator">=</span> <span class="token string">"tcp://47.108.94.36:1883"</span><span class="token punctuation">;</span>
+        String TOPIC <span class="token operator">=</span> <span class="token string">"test2"</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qos <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        String clientid <span class="token operator">=</span> <span class="token string">"subClient"</span><span class="token punctuation">;</span>
+        String userName <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">;</span>
+        String passWord <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// host为主机名，test为clientid即连接MQTT的客户端ID，一般以客户端唯一标识符表示，MemoryPersistence设置clientid的保存形式，默认为以内存保存</span>
+            MqttClient client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MqttClient</span><span class="token punctuation">(</span>broker<span class="token punctuation">,</span> clientid<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">MemoryPersistence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// MQTT的连接设置</span>
+            MqttConnectOptions options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MqttConnectOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置是否清空session,这里如果设置为false表示服务器会保留客户端的连接记录，这里设置为true表示每次连接到服务器都以新的身份连接</span>
+            options<span class="token punctuation">.</span><span class="token function">setCleanSession</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置连接的用户名</span>
+            options<span class="token punctuation">.</span><span class="token function">setUserName</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置连接的密码</span>
+            options<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span>passWord<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置超时时间 单位为秒</span>
+            options<span class="token punctuation">.</span><span class="token function">setConnectionTimeout</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送个消息判断客户端是否在线，但这个方法并没有重连的机制</span>
+            options<span class="token punctuation">.</span><span class="token function">setKeepAliveInterval</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置回调函数</span>
+            client<span class="token punctuation">.</span><span class="token function">setCallback</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MqttCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">connectionLost</span><span class="token punctuation">(</span>Throwable cause<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"connectionLost"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">messageArrived</span><span class="token punctuation">(</span>String topic<span class="token punctuation">,</span> MqttMessage message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"======监听到来自["</span> <span class="token operator">+</span> topic <span class="token operator">+</span> <span class="token string">"]的消息======"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"message content:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getPayload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"============"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deliveryComplete</span><span class="token punctuation">(</span>IMqttDeliveryToken token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"deliveryComplete---------"</span><span class="token operator">+</span> token<span class="token punctuation">.</span><span class="token function">isComplete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// 建立连接</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接到 broker: "</span> <span class="token operator">+</span> broker<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            client<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接成功."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//订阅消息</span>
+            client<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>TOPIC<span class="token punctuation">,</span> qos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"开始监听"</span> <span class="token operator">+</span> TOPIC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><ul>
+<li>订阅端</li>
+</ul>
+<pre class="line-numbers language-txt"><code class="language-txt">连接到 broker: tcp://47.108.94.36:1883
+连接成功.
+开始监听test2
+======监听到来自[test2]的消息======
+message content:hello mqtt
+============<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>发布端</li>
+</ul>
+<pre class="line-numbers language-txt"><code class="language-txt">连接到 broker: tcp://47.108.94.36:1883
+连接成功.
+向test2发送消息:hello mqtt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://wflin.ltd" class="b-link-green">wflin 的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/mqtt.html" class="b-link-green">mqtt</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/minio.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="minio">
+                        
+                        <span class="card-title">minio</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            java 操作 oos 文件存储服务器
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-11-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/oos/" class="post-category" target="_blank">
+                                    oos
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java-oos/" target="_blank">
+                        <span class="chip bg-color">java - oos</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/restful.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="restful">
+                        
+                        <span class="card-title">restful</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            web
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/javaweb/" class="post-category" target="_blank">
+                                    javaweb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/" target="_blank">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/javaweb/" target="_blank">
+                        <span class="chip bg-color">javaweb</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1500')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: wflin 的博客<br />'
+            + '作者: wflin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2019 洪卫. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">65.5k</span> 字
+            
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/wflin-linux" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2424357107@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=2424357107&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 08, 10, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="https://cdn.bootcss.com/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.bootcss.com/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.js"></script>
+        <script src="https://cdn.bootcss.com/scrollprogress/3.0.2/scrollProgress.min.js"></script>
+        <script src="https://cdn.bootcss.com/lightgallery/1.6.12/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "🙈~溜溜球🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧骗你的～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+            <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+            <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+            <script type="text/javascript" src="/js/fireworks.js"></script>
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+            <script src="/js/wenzi.js" type="text/javascript"></script>
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
+            <!--  在线聊天位置自定义  洪卫 shw2018 add 2019.09.13  -->
+            <script> 
+                $(document).ready(function () {
+
+                    setInterval(change_Tidio, 50);  
+                    function change_Tidio() { 
+
+                        var tidio=$("#tidio-chat iframe");
+                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
+                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        } 
+                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+
+                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
+                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
+                        }
+                    } 
+                }); 
+            </script>
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script></body>
+</html>

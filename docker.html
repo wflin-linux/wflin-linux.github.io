@@ -1,0 +1,2444 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="docker, wflin 的博客">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="docker
+
+
+推荐阅读文档地址 
+
+离线阅读:
+
+docker run -it –rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:vuepre">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>docker | wflin 的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/lightgallery/1.6.12/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">wflin 的博客</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/AV" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>视听</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/AV" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>视听</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">wflin 的博客</div>
+        <div class="logo-desc">
+            
+            一只野生程序员
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/AV" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                视听
+            </a>
+        </li>
+        
+        <li>
+            <a href="/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/AV" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        视听
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/wflin-linux" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        docker
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/linux/" target="_blank">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                            <a href="/tags/docker/" target="_blank">
+                                <span class="chip bg-color">docker</span>
+                            </a>
+                        
+                            <a href="/tags/容器/" target="_blank">
+                                <span class="chip bg-color">容器</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/docker/" class="post-category" target="_blank">
+                                docker
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-15
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        wflin
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        20 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style="display:none"></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><img src="/docker/image-20220422204735324.png" title="image-20220422204735324">
+
+<ul>
+<li><p><a href="https://yeasy.gitbook.io/docker_practice" target="_blank" rel="noopener">推荐阅读文档地址</a> </p>
+</li>
+<li><p>离线阅读:</p>
+<blockquote>
+<p>docker run -it –rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:vuepress</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>version: ‘3’</p>
+<p>services:</p>
+<p> docker-document:</p>
+<p>  image: ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:vuepress</p>
+<p>  container_name: docker-document</p>
+<p>  ports:</p>
+<p>   - 4000:80</p>
+<p>  restart: always</p>
+</blockquote>
+</li>
+<li><p>下载docker脚本 [curl -fsSL <a href="https://get.docker.com" target="_blank" rel="noopener">https://get.docker.com</a> | bash -s docker –mirror Aliyun](curl -fsSL <a href="https://get.docker.com" target="_blank" rel="noopener">https://get.docker.com</a> | bash -s docker –mirror Aliyun)</p>
+</li>
+<li><p><a href="https://hub.docker.com/" target="_blank" rel="noopener">docker hub 地址，很多优秀的镜像</a></p>
+</li>
+</ul>
+<h2 id="配置中科大镜像加速（推荐）"><a href="#配置中科大镜像加速（推荐）" class="headerlink" title="配置中科大镜像加速（推荐）"></a>配置中科大镜像加速（推荐）</h2><ul>
+<li>我推荐中科大这个，阿里云有时候有一些玄学问题</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell"># Ubuntu
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'eof' { "registry-mirrors": ["https: docker.mirrors.ustc.edu.cn"], "iptables": false } eof sudo systemctl daemon-reload restart docker enable # centos mkdir -p etc tee daemon.json <<-'eof' docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></-'eof'></code></pre>
+<h2 id="配置阿里云镜像加速"><a href="#配置阿里云镜像加速" class="headerlink" title="配置阿里云镜像加速"></a>配置阿里云镜像加速</h2><pre class="line-numbers language-shell"><code class="language-shell"># Ubuntu
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'eof' { "registry-mirrors": ["https: efwckkji.mirror.aliyuncs.com"], "iptables": true } eof sudo systemctl daemon-reload restart docker enable # centos mkdir -p etc tee daemon.json <<-'eof' docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></-'eof'></code></pre>
+<h2 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h2><pre class="line-numbers language-shell"><code class="language-shell">docker images  # 查看本地主机上所有的镜像
+
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+mysql         latest    5c62e459e087   3 days ago     556MB
+ubuntu        latest    9873176a8ff5   9 days ago     72.7MB
+hello-world   latest    d1165f221234   3 months ago   13.3kB
+centos        latest    300e315adb2f   6 months ago   209MB
+# 上面参数的的解释
+REPOSITORY     镜像仓库源
+TAG            镜像标签
+IMAGE ID    镜像id
+CREATED        镜像的创建时间
+SIZE        镜像的大小
+
+# 可选项
+-a，--all        # 列出所有镜像
+-q，--quiet        # 只显示镜像的id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>docker search 搜索镜像</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:/home/wflin# docker search mysql
+NAME                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql                             MySQL is a widely used, open-source relation…   11042     [OK]       
+mariadb                           MariaDB Server is a high performing open sou…   4186      [OK]     
+
+# 可选项，通过收藏来过滤
+-- filter=stars=3000    # 搜索出来的收藏大于3000的
+
+root@wflin-server:/home/wflin# docker search mysql --filter=stars=3000
+NAME      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql     MySQL is a widely used, open-source relation…   11042     [OK]       
+mariadb   MariaDB Server is a high performing open sou…   4186      [OK]       
+root@wflin-server:/home/wflin# docker search mysql --filter=stars=4000
+NAME      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql     MySQL is a widely used, open-source relation…   11042     [OK]       
+mariadb   MariaDB Server is a high performing open sou…   4186      [OK]       <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>docker pull</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 下载镜像 docker pull 镜像名 [:tag] 
+root@wflin-server:/home/wflin    # docker pull mysql
+Using default tag: latest      # 如果不写 tag 默认下载最新的
+b4d181a07f80: Pull complete  # 分层下载，docker image核心，联合文件系统
+a462b60610f5: Pull complete 
+578fafb77ab8: Pull complete 
+524046006037: Pull complete 
+d0cbe54c8855: Pull complete 
+aa18e05cc46d: Pull complete 
+32ca814c833f: Pull complete 
+9ecc8abdb7f5: Pull complete 
+ad042b682e0f: Pull complete 
+71d327c6bb78: Pull complete 
+165d1d10a3fa: Pull complete 
+2f40c47d0626: Pull complete 
+Digest: sha256:52b8406e4c32b8cf0557f1b74517e14c5393aff5cf0384eff62d9e81f4985d4b    # 签名
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest    # 真实地址
+
+# 等价于它
+docker pull mysql
+docker pull docker.io/library/mysql:latest
+
+# 指定版本下载
+docker pull mysql:5.7
+root@wflin-server:/home/wflin# docker pull mysql:5.7
+5.7: Pulling from library/mysql
+b4d181a07f80: Already exists 
+a462b60610f5: Already exists 
+578fafb77ab8: Already exists 
+524046006037: Already exists 
+d0cbe54c8855: Already exists 
+aa18e05cc46d: Already exists 
+32ca814c833f: Already exists 
+52645b4af634: Pull complete 
+bca6a5b14385: Pull complete 
+309f36297c75: Pull complete 
+7d75cacde0f8: Pull complete 
+Digest: sha256:1a2f9cd257e75cc80e9118b303d1648366bc2049101449bf2c8d82b022ea86b7
+Status: Downloaded newer image for mysql:5.7
+docker.io/library/mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/docker/image-20210627132518934.png" alt="image-20210627132518934"></p>
+<p><strong>docker rmi 删除镜像</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:/home/wflin# docker rmi -f 镜像id      #删除指定的容器
+
+#删除多个容器
+root@wflin-server:/home/wflin# docker rmi -f 镜像id 容器id 容器id 
+
+# 删除全部的容器
+root@wflin-server:/home/wflin# docker rmi -f $(docker images -aq)     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h2><p><strong>说明：有了镜像才可以创建容器，Linux，下载一个centos来测试学习</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker pull centos<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>新建容器并启动</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run [可选参数] image
+
+# 参数说明
+--name="name"        容器名字，tomacat01  tomacat02 ...
+-d                     后台方式运行
+-it                    使用交互方式运行，进入容器查看内容
+-p                    指定容器端口 -p  8080：8080
+    -p ip：主机端口：容器端口
+    -p 主机端口：容器端口（常用）
+    -p 容器端口
+    容器端口
+-p                    随机指定端口
+
+
+
+
+# 测试
+# 启动并进入容器
+root@wflin-server:/home/wflin# docker run -it centos /bin/bash
+[root@74084deb4db1 /]# 
+
+#查看容器内的centos，基础版本，许多命令不完善
+[root@74084deb4db1 /]# ls
+bin  etc   lib      lost+found  mnt  proc  run   srv  tmp  var
+dev  home  lib64  media       opt  root  sbin  sys  usr
+
+
+# 退出容器
+[root@74084deb4db1 /]# exit
+exit
+root@wflin-server:/home/wflin# ls
+root@wflin-server:/home/wflin# 
+
+# 进入正在运行的容器
+[root/wflin]# docker attach ID<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>列出所有的运行容器</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># docker ps 命令
+    # 列出当前正在运行的容器
+-a  # 列出当前正在运行的容器+带出历史运行过的容器
+-n=?    # 显示最近创建的容器
+-q         # 只显示容器的编号
+
+root@wflin-server:/home/wflin# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@wflin-server:/home/wflin# docker ps -a 
+CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                       PORTS     NAMES
+74084deb4db1   centos         "/bin/bash"              5 minutes ago       Exited (130) 2 minutes ago             laughing_rubin
+d715695fa465   5c62e459e087   "docker-entrypoint.s…"   About an hour ago   Created                                mysql-test
+65c14e0a392c   9873176a8ff5   "bash"                   2 hours ago         Exited (0) 2 hours ago                 inspiring_goldstine
+92c6b1d7ed88   centos         "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                 mystifying_almeida
+da44274c6bc6   centos         "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                 sweet_gould
+4fd6fabed535   d1165f221234   "/hello"                 2 hours ago         Exited (0) 2 hours ago                 zealous_moore
+4f866214a820   d1165f221234   "/hello"                 2 hours ago         Exited (0) 2 hours ago                 cool_einstein
+3e6471788607   d1165f221234   "/hello"                 2 hours ago         Exited (0) 2 hours ago                 vibrant_edison
+root@wflin-server:/home/wflin# 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>退出容器</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">exit    # 直接容器停止并退出
+ctrl + p + q     # 容器不停止<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>删除容器</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker rm 容器id        # 删除指定容器，不能删除正在运行的容器。如果要强制删除就用rm -f
+docker rm -f $(docker ps -aq)    # 删除所有镜像
+docker ps -aq|xargs docker rm    # 删除所有容器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>启动和停止容器的操作</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker start 容器id    #启动容器
+docker restart 容器id    #重启容器
+docker stop 容器id    # 停止容器
+docker kill 容器id    # 杀掉容器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="常用的其他命令"><a href="#常用的其他命令" class="headerlink" title="常用的其他命令"></a>常用的其他命令</h2><ul>
+<li><strong>后台启动容器</strong></li>
+</ul>
+<p>容器卷技术</p>
+<h2 id="实战安装mysql"><a href="#实战安装mysql" class="headerlink" title="实战安装mysql"></a>实战安装mysql</h2><pre class="line-numbers language-shell"><code class="language-shell"># 下载 mysql 镜像
+docker pull mysql:5.7
+#                 外部端口，内部端口        挂在在外部目录    挂载的内部目录                                    环境配置
+docker run -d -p 3306:3306 -v /home/mysql/config5:/etc/mysqlconf.d -v /home/mysql/data5:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=nba666 --name mysql-5.7 mysql:5.7
+
+docker run -d -p 3306:3306 -v /home/mysql/config:/etc/mysqlconf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=nba666 --name mysql-8.0 mysql:8.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="运行容器端口占用-踩坑"><a href="#运行容器端口占用-踩坑" class="headerlink" title="运行容器端口占用 踩坑"></a>运行容器端口占用 踩坑</h2><pre class="line-numbers language-shell"><code class="language-shell"># 查看端口占用情况
+netstat -tanlp
+
+# 筛选出 3306 的端口
+sudo netstat -nlptu | grep 3306
+
+# 解决端口占用问题 
+kill pid (占用端口的pid)
+
+# 进入正在运行的容器
+sudo docker attach 容器ID  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell"># mysql 创建y
+use mysql
+select Host,User from mysql.user;
+
+create user DuNa identified by 'Duna123';
+
+grant all privileges on *.* to root@'%' with grant option<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dockerfile 构建过程</p>
+<h2 id="关键保留字"><a href="#关键保留字" class="headerlink" title="关键保留字"></a>关键保留字</h2><p><strong>基础知识</strong></p>
+<ol>
+<li>每个保留关键字（指令）都必须是大写字母</li>
+<li>执行从上到下顺序执行</li>
+<li>“ # ”表示注释</li>
+<li>每一个指令都会提交一个性的镜像层，并提交！</li>
+<li>dockerfile是面向开发的，我们以后要发布项目，做镜像，就需要编写dockerfile文件，这个文件十分简单！docker 镜像逐渐成为企业交付的标准，必须掌握！</li>
+<li>Dockerfile：构建文件，定义了一切的步骤，源代码</li>
+<li>Dockerimages：通过dockerfile 构建生成的一个镜像，最终发布和运行的产品，原来是一个jar，war 包执行起来，全部都要变成容器</li>
+</ol>
+<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><h3 id="Docker-文件结构视图"><a href="#Docker-文件结构视图" class="headerlink" title="Docker 文件结构视图"></a>Docker 文件结构视图</h3><img src="/docker/image-20210708224811555.png">
+
+<h3 id="Dokcerfile-指令"><a href="#Dokcerfile-指令" class="headerlink" title="Dokcerfile 指令"></a>Dokcerfile 指令</h3><img src="/docker/image-20210708230532320.png">
+
+<pre class="line-numbers language-shell"><code class="language-shell">FROM                # 基础镜像，一切从这里开始构建
+MAINTAINER            # 镜像是谁写的，姓名+邮箱
+RUN                    # 镜像构建的时候西药运行的命令
+ADD                 # 步骤：tomcat 镜像，这个 tomcat 压缩包
+WORKDIR                # 镜像的工作目录
+VOLUEME                # 挂载目录位置
+EXPOSE                # 暴露端口配置 也可通过 -p 暴露端口
+CMD                    # 指定这个容器启动的时候需要运行的命令【只有最后一个会生效，可以被替代】
+ENTRYPOINT            # 指定这个容器启动的时候需要运行的命令【可以追加命令】
+ONBUILD                # 当构建一个被继承 DockerFile 这个时候就会运行 ONBUILD 的指令，触发指令
+COPY                # 类似 add 命令，将文件拷贝到镜像中
+ENV                    # 构建的时候设置环境变量<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="定制镜像测试"><a href="#定制镜像测试" class="headerlink" title="定制镜像测试"></a>定制镜像测试</h3><p>Docker Hub 中 99% 的镜像都是从基础镜像构建过来的</p>
+<ol>
+<li><p>编写 dockerfile 文件，我这里的文件名：<code>mycentos</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM centos:7
+# 这个说明可选了《不是必须》.
+MAINTAINER    wflin<test.com>
+
+ENV MYPATH /usr/local
+WORKDIR ${MYPATH}
+
+# 要执行的指令
+RUN yum update -n
+RUN yum -y install vim 
+RUN yum -y install net-tools
+
+EXPOSE 80
+# 输出的信息，因为前面说 CMD 只有最后一个会生效，所以应该只会出现 /bin/bash
+CMD echo ${MYPATH}
+CMD echo "--------end-----"
+CMD /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></test.com></code></pre>
+</li>
+</ol>
+<ol start="2">
+<li><p>构建镜像的指令</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 构建指令
+docker build -f  mycentos -t mycentos : 0.1 .
+
+#参数说明：
+ -f 代表 指定 dockerfile 文件
+ -t tag，生成名字和版本
+ 最后还有一个 .
+
+ # 构建完成显示 
+Removing intermediate container eaa8273e8d38
+ ---> 3754b0b27b2a
+Step 7/10 : EXPOSE 80
+ ---> Running in b5205972ddad
+Removing intermediate container b5205972ddad
+ ---> e1572c725b1c
+Step 8/10 : CMD echo ${MYPATH}
+ ---> Running in 5bec5095048a
+Removing intermediate container 5bec5095048a
+ ---> 4373e1577764
+Step 9/10 : CMD echo "--------end-----"
+ ---> Running in 6ba156902517
+Removing intermediate container 6ba156902517
+ ---> edd1a48d3657
+Step 10/10 : CMD /bin/bash
+ ---> Running in 3301bd6a5ee4
+Removing intermediate container 3301bd6a5ee4
+ ---> 5432537134ad
+Successfully built 5432537134ad
+Successfully tagged mycentos:0.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>查看构建镜像</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+mycentos     0.1       5432537134ad   39 seconds ago   591MB
+nginx        latest    605c77e624dd   3 months ago     141MB
+redis        latest    7614ae9453d1   3 months ago     113MB
+mysql        latest    3218b38490ce   4 months ago     516MB
+centos       7         eeb6ee3f44bd   7 months ago     204MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>运行构建好的镜像</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker run -it mycentos:0.1
+[root@6c63c9bd9365 local]# pwd
+/usr/local
+[root@6c63c9bd9365 local]# 
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h1 id="直接到了-工作目录-usr-local-指令都能用"><a href="#直接到了-工作目录-usr-local-指令都能用" class="headerlink" title="直接到了 工作目录 /usr/local,指令都能用"></a>直接到了 工作目录 /usr/local,指令都能用</h1><pre><code>
+5. docker history  imageID 显示构建历史（构建过程）
+
+   ```shell
+   root@wflin-server:~# docker history 5432537134ad
+   IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+   5432537134ad   7 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "/bin…   0B       
+   edd1a48d3657   7 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B       
+   4373e1577764   7 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B       
+   e1572c725b1c   7 minutes ago   /bin/sh -c #(nop)  EXPOSE 80                    0B       
+   3754b0b27b2a   7 minutes ago   /bin/sh -c yum -y install net-tools             166MB   
+   d16062eddd70   7 minutes ago   /bin/sh -c yum -y install vim                   221MB   
+   e1733b608785   9 minutes ago   /bin/sh -c #(nop) WORKDIR /usr/local            0B       
+   1d90358fa417   9 minutes ago   /bin/sh -c #(nop)  ENV MYPATH=/usr/local        0B       
+   cc918b6281e4   9 minutes ago   /bin/sh -c #(nop)  MAINTAINER wflin&lt;test.com&gt;   0B       
+   eeb6ee3f44bd   7 months ago    /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B       
+   &lt;missing&gt;      7 months ago    /bin/sh -c #(nop)  LABEL org.label-schema.sc…   0B       
+   &lt;missing&gt;      7 months ago    /bin/sh -c #(nop) ADD file:b3ebbe8bd304723d4…   204MB   
+   root@wflin-server:~# </code></pre><ol start="6">
+<li><p>例如查看 nginx 的构建过程,可以显示官方镜像的构建过程</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker history nginx
+IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+605c77e624dd   3 months ago   /bin/sh -c #(nop)  CMD ["nginx" "-g" "daemon…   0B        <missing>      3 months ago   /bin/sh -c #(nop)  STOPSIGNAL SIGQUIT           0B        <missing>      3 months ago   /bin/sh -c #(nop)  EXPOSE 80                    0B        <missing>      3 months ago   /bin/sh -c #(nop)  ENTRYPOINT ["/docker-entr…   0B        <missing>      3 months ago   /bin/sh -c #(nop) COPY file:09a214a3e07c919a…   4.61kB    <missing>      3 months ago   /bin/sh -c #(nop) COPY file:0fd5fca330dcd6a7…   1.04kB    <missing>      3 months ago   /bin/sh -c #(nop) COPY file:0b866ff3fc1ef5b0…   1.96kB    <missing>      3 months ago   /bin/sh -c #(nop) COPY file:65504f71f5855ca0…   1.2kB     <missing>      3 months ago   /bin/sh -c set -x     && addgroup --system -…   61.1MB    <missing>      3 months ago   /bin/sh -c #(nop)  ENV PKG_RELEASE=1~bullseye   0B        <missing>      3 months ago   /bin/sh -c #(nop)  ENV NJS_VERSION=0.7.1        0B        <missing>      3 months ago   /bin/sh -c #(nop)  ENV NGINX_VERSION=1.21.5     0B        <missing>      4 months ago   /bin/sh -c #(nop)  LABEL maintainer=NGINX Do…   0B        <missing>      4 months ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B        <missing>      4 months ago   /bin/sh -c #(nop) ADD file:09675d11695f65c55…   80.4MB    root@wflin-server:~# 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></missing></missing></missing></missing></missing></missing></missing></missing></missing></missing></missing></missing></missing></missing></code></pre>
+</li>
+</ol>
+<h3 id="CMD-和-ENTRYPOINT"><a href="#CMD-和-ENTRYPOINT" class="headerlink" title="CMD 和 ENTRYPOINT"></a>CMD 和 ENTRYPOINT</h3><pre class="line-numbers language-shell"><code class="language-shell">CMD                    # 指定这个容器启动的时候需要运行的命令【只有最后一个会生效，可以被替代】
+ENTRYPOINT            # 指定这个容器启动的时候需要运行的命令【可以追加命令】<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li><p>测试CMD</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#vim cmdcentos
+FROM centos:7
+CMD ["ls","-a"]
+
+#构建镜像
+docker build -f cmdcentos -t cmdcentos:0.1 .
+
+# run 镜像
+docker run f76ee2630109
+
+# 结果
+.
+..
+.dockerenv
+anaconda-post.log
+bin
+dev
+etc
+home
+lib
+lib64
+... ...
+
+# 加参数
+docker run f76ee2630109 -l
+# 结果
+docker: Error response from daemon: failed to create shim: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "-l": executable file not found in $PATH: unknown.
+ERRO[0000] error waiting for container: context canceled
+
+# 原因：cmd的情况下， -l 替换了 CMD ["ls","-a"] 命令，-l 不是命令，所以报错
+
+# 例如：
+root@wflin-server:~# docker run 0d3e566bc0a5 ls -l
+total 56
+-rw-r--r--   1 root root 12114 Nov 13  2020 anaconda-post.log
+lrwxrwxrwx   1 root root     7 Nov 13  2020 bin -> usr/bin
+drwxr-xr-x   5 root root   340 Apr 20 02:52 dev
+drwxr-xr-x   1 root root  4096 Apr 20 02:52 etc
+drwxr-xr-x   2 root root  4096 Apr 11  2018 home
+lrwxrwxrwx   1 root root     7 Nov 13  2020 lib -> usr/lib
+lrwxrwxrwx   1 root root     9 Nov 13  2020 lib64 -> usr/lib64
+drwxr-xr-x   2 root root  4096 Apr 11  2018 media
+drwxr-xr-x   2 root root  4096 Apr 11  2018 mnt
+drwxr-xr-x   2 root root  4096 Apr 11  2018 opt
+... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>测试 ENTRYPOINT</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 把上面的 cmdcentos 的 cmd 改为 entropoint 试试
+# 继续构建运行
+
+#vim cmdcentos
+FROM centos:7
+ENTRYPOINT ["ls","-a"]
+
+# 构建忽略
+# 运行
+root@wflin-server:~# docker run 00a71f921e2a
+.
+..
+.dockerenv
+anaconda-post.log
+bin
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+... ...
+
+# 追加指令
+root@wflin-server:~# docker run 00a71f921e2a -l
+total 64
+drwxr-xr-x   1 root root  4096 Apr 20 03:00 .
+drwxr-xr-x   1 root root  4096 Apr 20 03:00 ..
+-rwxr-xr-x   1 root root     0 Apr 20 03:00 .dockerenv
+-rw-r--r--   1 root root 12114 Nov 13  2020 anaconda-post.log
+lrwxrwxrwx   1 root root     7 Nov 13  2020 bin -> usr/bin
+drwxr-xr-x   5 root root   340 Apr 20 03:00 dev
+drwxr-xr-x   1 root root  4096 Apr 20 03:00 etc
+drwxr-xr-x   2 root root  4096 Apr 11  2018 home
+lrwxrwxrwx   1 root root     7 Nov 13  2020 lib -> usr/lib
+lrwxrwxrwx   1 root root     9 Nov 13  2020 lib64 -> usr/lib64
+drwxr-xr-x   2 root root  4096 Apr 11  2018 media
+...  ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="实战：Tomcat-镜像"><a href="#实战：Tomcat-镜像" class="headerlink" title="实战：Tomcat 镜像"></a>实战：Tomcat 镜像</h3><ul>
+<li><p>准备工作</p>
+<ol>
+<li><p>准备镜像文件 <code>tomcat</code> 压缩包，<code>jdk</code>的压缩包</p>
+<img src="/docker/image-20220420111006420.png" title="image-20220420111006420">
+</li>
+<li><p>编写 <code>dockerfile</code> 文件，官方命名 <code>Dockerfile</code>，build 会自动寻找这个文件，就不用 -f 指定了</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 初始镜像
+FROM centos:7
+
+# 镜像作者信息
+MAINTAINER wflin<test.com>
+
+# 只是拷贝文件，不会解压
+COPY readme.txt /usr/local/readme.txt
+
+# 添加jdk
+ADD jdk-8u281-linux-x64.tar.gz /usr/local/
+
+# 添加 tomcat
+ADD apache-tomcat-9.0.62.tar.gz /usr/local/
+
+# 安装 vim
+RUN yum -y install vim
+
+# 设置工作目录
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+
+# 设置Java环境变量
+ENV JAVA_HOME /usr/local/jdk1.8.0_281
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV CATALINA_HOME  /usr/local/apache-tomcat-9.0.62
+ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.62
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+
+# 暴露端口
+EXPOSE 80
+# 输出信息
+CMD /usr/local/apache-tomcat-9.0.62/bin/startup.sh && tail -f /usr/local/apache-tomcat-9.0.62/logs/catalina.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></test.com></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="3">
+<li><p>构建镜像</p>
+<blockquote>
+<p>docker build -t mytomcat  .</p>
+</blockquote>
+</li>
+<li><p>查看镜像</p>
+<pre class="line-numbers language-shell"><code class="language-shell">REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
+mytomcat     latest       cf6cb7c23e98   About a minute ago   798MB
+centos       7         eeb6ee3f44bd   7 months ago         204MB
+root@wflin-server:~/tomcat# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>使用镜像</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~/tomcat# docker run -d -p8080:8080 --name diytomcat -v /home/wflin/tomcat/test/:/usr/local/apache-tomcat-9.0.62/webapps/test -v /home/wflin/tomcat/tomcatlogs/:/usr/local/apache-tomcat-9.0.62/logs mytomcat
+
+# 成功进入镜像
+root@wflin-server:~/tomcat# docker exec -it  diytomcat /bin/bash
+[root@ab92e0f3fff4 local]# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>测试镜像</p>
+<blockquote>
+<p>访问： 在容器外部访问： curl 127.0.0.1:8080</p>
+</blockquote>
+</li>
+<li><p>发布项目(在网上找的)</p>
+<ul>
+<li><p>web.xml</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-app</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2.4<span class="token punctuation">"</span></span> 
+    <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://java.sun.com/xml/ns/j2ee<span class="token punctuation">"</span></span> 
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://java.sun.com/xml/ns/j2ee 
+        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-app</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>index.jsp</p>
+<pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page contenttype="text/html;charset=UTF-8" language="java" %>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+        <h1>hello world</h1>
+        <% system.out.println("wflin docker"); %>
+    </%><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script></body>
+
+    </html><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
+</li>
+<li><blockquote>
+<p>访问  curl 127.0.0.1:8080/test</p>
+</blockquote>
+</li>
+<li><p>查看运行日志</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:/home/wflin/tomcat/tomcatlogs# tail catalina.out 
+wflin test log
+wflin test log
+wflin test log
+wflin test log
+wflin test log
+wflin test log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="向-docker-hub-发布镜像"><a href="#向-docker-hub-发布镜像" class="headerlink" title="向 docker hub 发布镜像"></a>向 docker hub 发布镜像</h3><blockquote>
+<p>docker hub</p>
+</blockquote>
+<ol>
+<li><p>在 docker hub 注册自己的账号！</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker login --help
+
+Usage:  docker login [OPTIONS] [SERVER]
+
+Log in to a Docker registry.
+If no server is specified, the default is defined by the daemon.
+
+Options:
+  -p, --password string   Password
+      --password-stdin    Take the password from stdin
+  -u, --username string  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<ol start="2">
+<li><p>确定这个账号可以登陆</p>
+</li>
+<li><p>在自己服务器上提交自己的镜像</p>
+<blockquote>
+<p>登陆完毕就可以提交镜像了，就是一步 docker push user/image : tag【这样好区分，不然多半会提交被拒绝】</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="提交到-阿里云容器仓库"><a href="#提交到-阿里云容器仓库" class="headerlink" title="提交到 阿里云容器仓库"></a>提交到 阿里云容器仓库</h3><ol>
+<li><p>登陆阿里云</p>
+<img src="/docker/image-20220420142030709.png" alt="image-20220420142030709" style="zoom:50%;">
+</li>
+<li><p>找到容器镜像服务 并创建 容器镜像服务，个人版本好像是免费的</p>
+<img src="/docker/image-20220420142516275.png" title="image-20220420142516275">
+</li>
+<li><p>创建好之后就是这个样子</p>
+<img src="/docker/image-20220420142638675.png" title="image-20220420142638675">
+</li>
+<li><p>创建一个私有命名空间</p>
+<img src="/docker/image-20220420142749025.png" title="image-20220420142749025">
+</li>
+<li><p>再创建一个镜像仓库,选择本地仓库</p>
+<img src="/docker/image-20220420142855312.png" title="image-20220420142855312">
+</li>
+<li><p>根据提示操作就行（很详细）</p>
+</li>
+<li><p>登陆成功</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker login --username=user registry.cn-hangzhou.aliyuncs.com
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><blockquote>
+<p>注意：提交的镜像 的名字 user/image : tag </p>
+<blockquote>
+<p>docker push wflin/tomcat : 1.0</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h3 id="理解-Docker-0"><a href="#理解-Docker-0" class="headerlink" title="理解 Docker 0"></a>理解 Docker 0</h3><blockquote>
+<p>测试：获取 IP 地址 ifconfig 或者 ip addr</p>
+</blockquote>
+<img src="/docker/image-20220330230041350.png" title="image-20220330230041350">
+
+<blockquote>
+<p>容器内部网络情况，外部可以 ping 通 docker 外部</p>
+</blockquote>
+<img src="/docker/image-20220330230210877.png" title="image-20220330230210877">
+
+<blockquote>
+<p>原理</p>
+</blockquote>
+<ol>
+<li><p>每启动一个 docker 容器，docker 会给 docker 容器分配一个 IP ，只要安装了 docker，就会有一个 docker0的桥接模式的网卡，使用的技术是 <code>evth-pair</code> 技术</p>
+<p><code>evth-pair</code>：就是一对虚拟设备接口，他们都是成对出现的,一端连接协议，一端彼此相连。所以就可以通</p>
+</li>
+<li><p>docker0 就是一个网桥（可以理解为一个路由）所有docker 容器之间的通信都是通过 docker0路由转发（小型局域网） 通信。</p>
+</li>
+<li><p>可以看图示</p>
+<img src="/docker/image-20220420153503228.png" title="image-20220420153503228">
+
+</li>
+</ol>
+<h3 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h3><blockquote>
+<p>项目不重启的情况下，数据库的IP换掉了，可以通过容器别名 –link ping 通容器</p>
+</blockquote>
+<ul>
+<li><p>启动俩容器：</p>
+<blockquote>
+<p>docker run -d -P –name tomcat01 tomcat</p>
+<p>docker run -d -P –name tomcat02 tomcat</p>
+</blockquote>
+</li>
+<li><p>尝试  <code>ping</code> 连接,连接不通</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker exec -it tomcat01 ping tomcat02 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>再启动一个 tomcat 容器</p>
+<blockquote>
+<p>docker run -d -P –name tomcat03 –link tomcat02 tomcat</p>
+</blockquote>
+</li>
+<li><p>用 <code>tomcat03 ping tomcat02</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it tomcat03 ping tomcat02 #可以通
+docker exec -it tomcat02 ping tomcat03 #可以通不了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h3><blockquote>
+<p>​    docker0 局限性太大</p>
+</blockquote>
+<blockquote>
+<p>查看所有 docker 网络</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+fe4a77565263   bridge    bridge    local
+bc5dacdb5f8b   host      host      local
+edd3947c7f0a   none      null      local
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>网络模式</p>
+</blockquote>
+<ul>
+<li>bridge：桥接 docker（默认，一般自己也用）</li>
+<li>none：不配置网络</li>
+<li>host：和宿主机共享</li>
+<li>container：容器网络连通（用得少）</li>
+</ul>
+<blockquote>
+<p>网络可以选项指令</p>
+</blockquote>
+<pre class="line-numbers language-shel"><code class="language-shel">root@wflin-server:~# docker network --help
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+  connect     Connect a container to a network
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>创建网络</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell"># 我们直接启动命令 --net bridge，而这个就是我们的 docker0
+docker run -d -P --name tomcat01 tomcat
+docker run -d -P --name tomcat01 --net bridge tomcat
+
+# docker0 的特点。默认的，不能被域名访问，--link 可以打通直连
+
+# 自定义网络<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>创建网络指令</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker network create --help
+
+Usage:  docker network create [OPTIONS] NETWORK
+Create a network
+
+Options:
+      --attachable           Enable manual container attachment
+      --aux-address map      Auxiliary IPv4 or IPv6 addresses used by Network
+                             driver (default map[])
+      --config-from string   The network from which to copy the configuration
+      --config-only          Create a configuration only network
+  -d, --driver string        Driver to manage the Network (default "bridge")
+      --gateway strings      IPv4 or IPv6 Gateway for the master subnet
+      --ingress              Create swarm routing-mesh network
+      --internal             Restrict external access to the network
+      --ip-range strings     Allocate container ip from a sub-range
+      --ipam-driver string   IP Address Management Driver (default "default")
+      --ipam-opt map         Set IPAM driver specific options (default map[])
+      --ipv6                 Enable IPv6 networking
+      --label list           Set metadata on a network
+  -o, --opt map              Set driver specific options (default map[])
+      --scope string         Control the network's scope
+      --subnet strings       Subnet in CIDR format that represents a network segment
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>创建网络</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell"># --driver 网络模式 
+# --subnet 子网网段和掩码 
+# --gateway 网关 网络名字
+
+root@wflin-server:~# docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet
+db6d7453eebebef2b30695b1576cf6f1d53b472e1fd1ef92ac2256ebbddf5d94
+root@wflin-server:~#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>查看创建的网络</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+fe4a77565263   bridge    bridge    local
+bc5dacdb5f8b   host      host      local
+db6d7453eebe   mynet     bridge    local    # 自己的网络创建成功
+edd3947c7f0a   none      null      local
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>查看创建网络的详情</p>
+</blockquote>
+<pre><code>root@wflin-server:~# docker network inspect mynet
+[
+    {
+        "Name": "mynet",
+        "Id": "db6d7453eebebef2b30695b1576cf6f1d53b472e1fd1ef92ac2256ebbddf5d94",
+        "Created": "2022-04-20T08:21:15.525137543Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.0.0/16",
+                    "Gateway": "192.168.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@wflin-server:~# </code></pre><blockquote>
+<p>网络创建完毕</p>
+</blockquote>
+<blockquote>
+<p>发布容器到创建的网络</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell"># 运行了两个 nginx 【tomcat 太大，伤不起】
+root@wflin-server:~# docker run -d -P --name nginx01 --net mynet nginx
+1e813d36e0e8b11368589b36ff2364c840cb2f302fc54f0ea57802fc4953cd39
+root@wflin-server:~# docker run -d -P --name nginx02 --net mynet nginx
+84e7c0daa060bc40779a26cd6605a5984737646977408d88f31d5afa980d0fbc
+root@wflin-server:~# 
+
+# 查看 mynet 网络
+root@wflin-server:~# docker network inspect mynet
+[
+    {
+        "Name": "mynet",
+        "Id": "db6d7453eebebef2b30695b1576cf6f1d53b472e1fd1ef92ac2256ebbddf5d94",
+        "Created": "2022-04-20T08:21:15.525137543Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.0.0/16",
+                    "Gateway": "192.168.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+
+        # 这里就有 nginx01 和 nginx02 的信息
+        "Containers": {
+            "1e813d36e0e8b11368589b36ff2364c840cb2f302fc54f0ea57802fc4953cd39": {
+                "Name": "nginx01",
+                "EndpointID": "014c4b1bee8accafb4bd61af1ab604cfdfb40e2f0daf3662471d8aab1bfcc3bc",
+                "MacAddress": "02:42:c0:a8:00:02",
+                "IPv4Address": "192.168.0.2/16",
+                "IPv6Address": ""
+            },
+            "84e7c0daa060bc40779a26cd6605a5984737646977408d88f31d5afa980d0fbc": {
+                "Name": "nginx02",
+                "EndpointID": "abc06f8372d33671196a1031f93865107ea2ce8a58586ba3290f0c79057dbd4e",
+                "MacAddress": "02:42:c0:a8:00:03",
+                "IPv4Address": "192.168.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@wflin-server:~# ^C<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>这个两个 nginx  互 ping 一下</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell"># 由于 nginx 没有 ping 工具，所以无法使用 ping 功能
+# 所以需要安装一下
+root@wflin-server:~# docker exec -it  nginx01 apt-get -y install inetutils-ping
+root@wflin-server:~# docker exec -it  nginx02 apt-get -y install inetutils-ping
+
+# nginx02 ping nginx01
+root@wflin-server:~# docker exec -it nginx02 ping nginx01
+PING nginx01 (192.168.0.2): 56 data bytes
+64 bytes from 192.168.0.2: icmp_seq=0 ttl=64 time=0.597 ms
+64 bytes from 192.168.0.2: icmp_seq=1 ttl=64 time=0.053 ms
+
+# nginx01 ping nginx02
+root@wflin-server:~# docker exec -it nginx01 ping nginx02
+PING nginx02 (192.168.0.3): 56 data bytes
+64 bytes from 192.168.0.3: icmp_seq=0 ttl=64 time=0.042 ms
+64 bytes from 192.168.0.3: icmp_seq=1 ttl=64 time=0.091 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="网络连通"><a href="#网络连通" class="headerlink" title="网络连通"></a>网络连通</h3><ul>
+<li><blockquote>
+<p>docker network –help</p>
+</blockquote>
+</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker network --help
+
+Usage:  docker network COMMAND
+Manage networks
+
+Commands:
+  connect     Connect a container to a network  # 把一个容器连接到一个网络
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><blockquote>
+<p>docker network  connet –help</p>
+</blockquote>
+</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker network connect  --help
+
+Usage:  docker network connect [OPTIONS] NETWORK CONTAINER
+Connect a container to a network
+
+Options:
+      --alias strings           Add network-scoped alias for the container
+      --driver-opt strings      driver options for the network
+      --ip string               IPv4 address (e.g., 172.30.100.104)
+      --ip6 string              IPv6 address (e.g., 2001:db8::33)
+      --link list               Add link to another container
+      --link-local-ip strings   Add a link-local address for the container
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="测试-nginx03-通-mynet"><a href="#测试-nginx03-通-mynet" class="headerlink" title="测试 nginx03 通 mynet"></a>测试 nginx03 通 mynet</h4><ul>
+<li><p>运行 nginx03</p>
+<pre class="line-numbers language-shell"><code class="language-shell">root@wflin-server:~# docker run -d --name nginx03 nginx # 网络默认是docker0
+a4bd9db4ba8fc857a39cfd8783ba989839063ae420c5998c2422a196358011bf
+root@wflin-server:~# 
+
+# 用 nginx02 ping nginx03   ping 不通
+root@wflin-server:~# docker exec -it nginx02 ping nginx03
+ping: unknown host
+root@wflin-server:~# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p><strong>nginx03 连接到 mynet</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># nginx03 连接到 mynet
+root@wflin-server:~# docker network connect mynet nginx03
+
+# 查看 mynet 网络配置
+root@wflin-server:~# docker network inspect mynet
+[
+    {
+        "Name": "mynet",
+        "Id": "db6d7453eebebef2b30695b1576cf6f1d53b472e1fd1ef92ac2256ebbddf5d94",
+        "Created": "2022-04-20T08:21:15.525137543Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.0.0/16",
+                    "Gateway": "192.168.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "1e813d36e0e8b11368589b36ff2364c840cb2f302fc54f0ea57802fc4953cd39": {
+                "Name": "nginx01",
+                "EndpointID": "56201d830e18e9d012e8ef3566ad2fcf0c7211a90cc5054dd716fccf8c62d1e7",
+                "MacAddress": "02:42:c0:a8:00:02",
+                "IPv4Address": "192.168.0.2/16",
+                "IPv6Address": ""
+            },
+            "84e7c0daa060bc40779a26cd6605a5984737646977408d88f31d5afa980d0fbc": {
+                "Name": "nginx02",
+                "EndpointID": "abc06f8372d33671196a1031f93865107ea2ce8a58586ba3290f0c79057dbd4e",
+                "MacAddress": "02:42:c0:a8:00:03",
+                "IPv4Address": "192.168.0.3/16",
+                "IPv6Address": ""
+            },
+
+            # nginx03 网络加入了mynet
+            "a4bd9db4ba8fc857a39cfd8783ba989839063ae420c5998c2422a196358011bf": {
+                "Name": "nginx03",
+                "EndpointID": "7bc12e716959f688ce647749280aac2e8e76ca8fc164930bac119a8c29f5cd28",
+                "MacAddress": "02:42:c0:a8:00:04",
+                "IPv4Address": "192.168.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@wflin-server:~#
+# 一个容器两个 ip 地址
+# aliyun云服务: 公网ip，和 内网ip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><ol>
+<li>常用指令：</li>
+</ol>
+<ul>
+<li>docker-compose <ul>
+<li>up  直接启动（控制台打日志）<ul>
+<li>-d 后台启动</li>
+<li>–buid 重新构建并启动（部署 Dockerfile 的镜像时常用，改动文件后重新部署生成）</li>
+</ul>
+</li>
+<li>ps -a 查看当前 yaml 文件下的所有容器服务列表</li>
+<li>restart 重启 docker-compose.yaml 中所管理的服务</li>
+</ul>
+</li>
+</ul>
+<h3 id="模板文件："><a href="#模板文件：" class="headerlink" title="模板文件："></a>模板文件：</h3><pre class="line-numbers language-shell"><code class="language-shell">version "3"
+
+service:
+ serviceName:
+     image: 镜像名字
+     container_name: 容器别名
+     port: 暴露端口
+     volume: 挂载数据卷
+     environment：环境变量
+     command: 容器启动执行指令
+     network: 容器挂载网络
+     depend_on: 启动时依赖的其他服务先启动
+
+ network：
+     - 配置网络<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="部署Java"><a href="#部署Java" class="headerlink" title="部署Java"></a>部署Java</h4><ol>
+<li>编写 Dockerfile</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM openjdk:8-jre
+ADD *.jar /app/apps.jar
+ENV MYPATH /app
+WORKDIR $MYPATH
+EXPOSE 9090
+ENTRYPOINT ["java","-jar"]
+CMD ["apps.jar"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>编写 docker-compose.yaml</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.0"</span>
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">prod</span><span class="token punctuation">:</span>
+    <span class="token key atrule">external</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token comment" spellcheck="true"># 管理一组服务</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">back</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true">#后台服务</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> 
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./back
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token comment" spellcheck="true"># ports:</span>
+    <span class="token comment" spellcheck="true">#   - "9090:9090"</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> back
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> prod
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> mysql5
+
+  <span class="token key atrule">front</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true">#前台服务</span>
+  <span class="token comment" spellcheck="true">#    build: ./</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./front
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> front
+    <span class="token comment" spellcheck="true"># ports:</span>
+    <span class="token comment" spellcheck="true">#   - "9000:9000"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> prod
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> mysql5
+
+  <span class="token key atrule">mysql5</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql<span class="token punctuation">-</span><span class="token number">5.7</span>
+    <span class="token key atrule">shm_size</span><span class="token punctuation">:</span> 100mb
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"3305:3306"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./mysqlConfig/config5<span class="token punctuation">:</span>/etc/mysql/conf.d
+      <span class="token punctuation">-</span> ./mysqlData/data5<span class="token punctuation">:</span>/var/lib/mysql
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> MYSQL_ROOT_PASSWORD=nba1234567
+      <span class="token punctuation">-</span> TZ=Asia/Shanghai
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token string">"999:999"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> prod
+
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true">#nginx服务</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./nginx/conf/<span class="token punctuation">:</span>/etc/nginx/conf.d <span class="token comment" spellcheck="true">#配置文件挂载</span>
+      <span class="token punctuation">-</span> ./nginx/template<span class="token punctuation">:</span>/usr/share/nginx <span class="token comment" spellcheck="true">#静态资源根目录挂载</span>
+      <span class="token punctuation">-</span> ./nginx/log<span class="token punctuation">:</span>/var/log/nginx <span class="token comment" spellcheck="true">#日志文件挂载</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> prod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意：<code>在一个docker 网络中如果需要连接这个网络中的 redis、mysql 等中间件，如果没有对外映射端口。 需要将 application.yaml 中将数据库的连接改为对应服务名进行访问</code></p>
+<h2 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h2><h5 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h5><ul>
+<li><p>上午松哥审核并讲解了之前提交的代码，指出了代码中存在的一些问题，方法的单一职责，注释的书写，方法名称的定义等</p>
+</li>
+<li><p>薪哥讲解一下公司的物联网中台的大致样子，有哪些模块，支持几种通道tcp/udp/mqtt/http 等，网关支持的协议</p>
+</li>
+<li><p>概述了一下base_service 的一些代码，主启动里面启动时注册了一些组件，然后责任链模式，报文解析的脚本 Groove</p>
+</li>
+<li><p>最后测试一下那个系统的拓展的选择时间范围查设备的功能</p>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://wflin.ltd" class="b-link-green">wflin 的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/docker.html" class="b-link-green">docker</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/niu-ke-mysql.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="MySQL practise">
+                        
+                        <span class="card-title">MySQL practise</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            springboot
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-11-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MySQL/" target="_blank">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/aiot.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ATM小项目">
+                        
+                        <span class="card-title">ATM小项目</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            demo
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-10-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/c/" class="post-category" target="_blank">
+                                    c
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/aiot/" target="_blank">
+                        <span class="chip bg-color">aiot</span>
+                    </a>
+                    
+                    <a href="/tags/c/" target="_blank">
+                        <span class="chip bg-color">c</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1500')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: wflin 的博客<br />'
+            + '作者: wflin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5,h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5,h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2019 洪卫. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">65.5k</span> 字
+            
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/wflin-linux" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2424357107@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=2424357107&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 08, 10, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="https://cdn.bootcss.com/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.bootcss.com/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.js"></script>
+        <script src="https://cdn.bootcss.com/scrollprogress/3.0.2/scrollProgress.min.js"></script>
+        <script src="https://cdn.bootcss.com/lightgallery/1.6.12/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "🙈~溜溜球🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧骗你的～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+            <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+            <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+            <script type="text/javascript" src="/js/fireworks.js"></script>
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+            <script src="/js/wenzi.js" type="text/javascript"></script>
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
+            <!--  在线聊天位置自定义  洪卫 shw2018 add 2019.09.13  -->
+            <script> 
+                $(document).ready(function () {
+
+                    setInterval(change_Tidio, 50);  
+                    function change_Tidio() { 
+
+                        var tidio=$("#tidio-chat iframe");
+                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
+                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        } 
+                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+
+                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
+                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
+                        }
+                    } 
+                }); 
+            </script>
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script></body>
+</html>

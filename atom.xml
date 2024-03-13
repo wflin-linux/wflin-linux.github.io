@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>wflin 的博客</title>
+  
+  <subtitle>wflin 的博客</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://wflin.ltd/"/>
+  <updated>2024-03-13T15:49:47.637Z</updated>
+  <id>https://wflin.ltd/</id>
+  
+  <author>
+    <name>wflin</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>shell</title>
+    <link href="https://wflin.ltd/shell.html"/>
+    <id>https://wflin.ltd/shell.html</id>
+    <published>2023-11-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;推荐阅读：&lt;/p&gt;
+&lt;h2 id=&quot;IF&quot;&gt;&lt;a href=&quot;#IF&quot; class=&quot;headerlink&quot; title=&quot;IF&quot;&gt;&lt;/a&gt;IF&lt;/h2&gt;&lt;h3 id=&quot;if&quot;&gt;&lt;a href=&quot;#if&quot; class=&quot;headerlink&quot; title=&quot;if
+        
+      
+    
+    </summary>
+    
+      <category term="shell" scheme="https://wflin.ltd/categories/shell/"/>
+    
+    
+      <category term="shell" scheme="https://wflin.ltd/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rt-thread</title>
+    <link href="https://wflin.ltd/rt-thread.html"/>
+    <id>https://wflin.ltd/rt-thread.html</id>
+    <published>2023-10-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script&gt;
+        document.querySelectorAll(&#39;.github-emoji&#39;)
+          .forEach(el =&gt; {
+            if (!el.dataset.src) { return; }
+       
+        
+      
+    
+    </summary>
+    
+      <category term="rt-thread" scheme="https://wflin.ltd/categories/rt-thread/"/>
+    
+    
+      <category term="rt-thread" scheme="https://wflin.ltd/tags/rt-thread/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>socket-tcp详解</title>
+    <link href="https://wflin.ltd/socket-tcp.html"/>
+    <id>https://wflin.ltd/socket-tcp.html</id>
+    <published>2023-10-01T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;网络模型&quot;&gt;&lt;a href=&quot;#网络模型&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="c" scheme="https://wflin.ltd/categories/c/"/>
+    
+    
+      <category term="socket" scheme="https://wflin.ltd/tags/socket/"/>
+    
+      <category term="tcp" scheme="https://wflin.ltd/tags/tcp/"/>
+    
+      <category term="network" scheme="https://wflin.ltd/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>qt</title>
+    <link href="https://wflin.ltd/qt.html"/>
+    <id>https://wflin.ltd/qt.html</id>
+    <published>2023-08-25T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.625Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;信号和槽&quot;&gt;&lt;a href=&quot;#信号和槽&quot; class=&quot;headerlink&quot; title=&quot;信号和槽&quot;&gt;&lt;/a&gt;信号和槽&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;信号：信号指控件发出的特定信号。&lt;/p&gt;
+&lt;p&gt;比如按钮信号&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="qt" scheme="https://wflin.ltd/categories/qt/"/>
+    
+    
+      <category term="c++" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="qt" scheme="https://wflin.ltd/tags/qt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>国内使用 chatgpt</title>
+    <link href="https://wflin.ltd/chatgpt.html"/>
+    <id>https://wflin.ltd/chatgpt.html</id>
+    <published>2023-08-24T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.605Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;推荐一个国内可使用的chatgpt网址，帮朋友做一个推广&quot;&gt;&lt;a href=&quot;#推荐一个国内可使用的chatgpt网址，帮朋友做一个推广&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="chatgpt" scheme="https://wflin.ltd/categories/chatgpt/"/>
+    
+    
+      <category term="chatgpt" scheme="https://wflin.ltd/tags/chatgpt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tcp/udp套接字</title>
+    <link href="https://wflin.ltd/tcp-udp.html"/>
+    <id>https://wflin.ltd/tcp-udp.html</id>
+    <published>2023-08-15T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;字节序&quot;&gt;&lt;a href=&quot;#字节序&quot; class=&quot;headerlink&quot; title=&quot;字节序&quot;&gt;&lt;/a&gt;字节序&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;大端小端都叫主机字节序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;小端&quot;&gt;&lt;a href=&quot;#小端&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="c" scheme="https://wflin.ltd/categories/c/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="linux" scheme="https://wflin.ltd/tags/linux/"/>
+    
+      <category term="tcp/udp" scheme="https://wflin.ltd/tags/tcp-udp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>thttpd</title>
+    <link href="https://wflin.ltd/tinyhttpd.html"/>
+    <id>https://wflin.ltd/tinyhttpd.html</id>
+    <published>2023-08-04T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;下载源码&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git clone &lt;a href=&quot;https://github.com/larryhe/tinyhttpd.git&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="c" scheme="https://wflin.ltd/categories/c/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="thttpd" scheme="https://wflin.ltd/tags/thttpd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BootLoader</title>
+    <link href="https://wflin.ltd/bootloader.html"/>
+    <id>https://wflin.ltd/bootloader.html</id>
+    <published>2023-08-03T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.605Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script&gt;
+        document.querySelectorAll(&#39;.github-emoji&#39;)
+          .forEach(el =&gt; {
+            if (!el.dataset.src) { return; }
+       
+        
+      
+    
+    </summary>
+    
+      <category term="c" scheme="https://wflin.ltd/categories/c/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="bootloader" scheme="https://wflin.ltd/tags/bootloader/"/>
+    
+      <category term="linux" scheme="https://wflin.ltd/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqlite</title>
+    <link href="https://wflin.ltd/sqlite.html"/>
+    <id>https://wflin.ltd/sqlite.html</id>
+    <published>2023-08-02T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.641Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;安装-sqlite3&quot;&gt;&lt;a href=&quot;#安装-sqlite3&quot; class=&quot;headerlink&quot; title=&quot;安装 sqlite3&quot;&gt;&lt;/a&gt;安装 sqlite3&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;sqlite3 这个是安装 sqlite3
+        
+      
+    
+    </summary>
+    
+      <category term="c" scheme="https://wflin.ltd/categories/c/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="sqlite" scheme="https://wflin.ltd/tags/sqlite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>openwrt</title>
+    <link href="https://wflin.ltd/openwrt.html"/>
+    <id>https://wflin.ltd/openwrt.html</id>
+    <published>2023-07-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.625Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h1&gt;&lt;p&gt;额。。。 建议按照这个来(因为我就按照这个编译成功了)，因为最新镜像有时候要求你的 python 必须要 3.7
+        
+      
+    
+    </summary>
+    
+      <category term="嵌入式" scheme="https://wflin.ltd/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="iot" scheme="https://wflin.ltd/tags/iot/"/>
+    
+      <category term="openwrt" scheme="https://wflin.ltd/tags/openwrt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wireshark</title>
+    <link href="https://wflin.ltd/wireshark.html"/>
+    <id>https://wflin.ltd/wireshark.html</id>
+    <published>2023-07-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;img src=&quot;/wireshark/image-20230811211811504.png&quot; title=&quot;image-20230811211811504&quot;&gt;&lt;script&gt;
+       
+        
+      
+    
+    </summary>
+    
+      <category term="wireshark" scheme="https://wflin.ltd/categories/wireshark/"/>
+    
+    
+      <category term="wireshark" scheme="https://wflin.ltd/tags/wireshark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RaspberryPi</title>
+    <link href="https://wflin.ltd/raspberrypi.html"/>
+    <id>https://wflin.ltd/raspberrypi.html</id>
+    <published>2023-06-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.633Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;下载和烧写镜像&quot;&gt;&lt;a href=&quot;#下载和烧写镜像&quot; class=&quot;headerlink&quot; title=&quot;下载和烧写镜像&quot;&gt;&lt;/a&gt;下载和烧写镜像&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;从官网下载树莓派镜像，使用烧写工具 balena-etcher
+        
+      
+    
+    </summary>
+    
+      <category term="嵌入式" scheme="https://wflin.ltd/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="Linux" scheme="https://wflin.ltd/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>samba</title>
+    <link href="https://wflin.ltd/smba.html"/>
+    <id>https://wflin.ltd/smba.html</id>
+    <published>2023-06-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;安装samba&quot;&gt;&lt;a href=&quot;#安装samba&quot; class=&quot;headerlink&quot; title=&quot;安装samba&quot;&gt;&lt;/a&gt;安装samba&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;sudo apt-get install
+        
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://wflin.ltd/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://wflin.ltd/tags/linux/"/>
+    
+      <category term="iot" scheme="https://wflin.ltd/tags/iot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>总线协议</title>
+    <link href="https://wflin.ltd/zong-xian-xie-yi.html"/>
+    <id>https://wflin.ltd/zong-xian-xie-yi.html</id>
+    <published>2023-06-10T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;总线通信基本概念&quot;&gt;&lt;a href=&quot;#总线通信基本概念&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="嵌入式" scheme="https://wflin.ltd/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+      <category term="I2C" scheme="https://wflin.ltd/tags/I2C/"/>
+    
+      <category term="SPI" scheme="https://wflin.ltd/tags/SPI/"/>
+    
+      <category term="USB" scheme="https://wflin.ltd/tags/USB/"/>
+    
+      <category term="UART" scheme="https://wflin.ltd/tags/UART/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vscode开发 Linux 系统编程</title>
+    <link href="https://wflin.ltd/vscode-bian-xie-linux-c.html"/>
+    <id>https://wflin.ltd/vscode-bian-xie-linux-c.html</id>
+    <published>2023-04-15T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;vscode-插件下载&quot;&gt;&lt;a href=&quot;#vscode-插件下载&quot; class=&quot;headerlink&quot; title=&quot;vscode 插件下载&quot;&gt;&lt;/a&gt;vscode 插件下载&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;c/c++&lt;/li&gt;
+&lt;li&gt;c/c++
+        
+      
+    
+    </summary>
+    
+      <category term="嵌入式" scheme="https://wflin.ltd/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="c" scheme="https://wflin.ltd/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>springboot-tools</title>
+    <link href="https://wflin.ltd/springboot-tools.html"/>
+    <id>https://wflin.ltd/springboot-tools.html</id>
+    <published>2023-03-06T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.641Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;POM&quot;&gt;&lt;a href=&quot;#POM&quot; class=&quot;headerlink&quot; title=&quot;POM&quot;&gt;&lt;/a&gt;POM&lt;/h1&gt;&lt;h2 id=&quot;清除本地仓库的坏包&quot;&gt;&lt;a href=&quot;#清除本地仓库的坏包&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java 开发常用配置" scheme="https://wflin.ltd/categories/Java-%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="java" scheme="https://wflin.ltd/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编码常用类和方法</title>
+    <link href="https://wflin.ltd/code-tools.html"/>
+    <id>https://wflin.ltd/code-tools.html</id>
+    <published>2023-02-19T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.605Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;java&quot;&gt;&lt;a href=&quot;#java&quot; class=&quot;headerlink&quot; title=&quot;java&quot;&gt;&lt;/a&gt;java&lt;/h1&gt;&lt;h2 id=&quot;boot常用pom&quot;&gt;&lt;a href=&quot;#boot常用pom&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="code-tools" scheme="https://wflin.ltd/categories/code-tools/"/>
+    
+    
+      <category term="java" scheme="https://wflin.ltd/tags/java/"/>
+    
+      <category term="vue" scheme="https://wflin.ltd/tags/vue/"/>
+    
+      <category term="javascript" scheme="https://wflin.ltd/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 常用函数</title>
+    <link href="https://wflin.ltd/js-han-shu.html"/>
+    <id>https://wflin.ltd/js-han-shu.html</id>
+    <published>2023-02-18T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.617Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;JavaScript-下拉加载防抖节流函数&quot;&gt;&lt;a href=&quot;#JavaScript-下拉加载防抖节流函数&quot; class=&quot;headerlink&quot; title=&quot;JavaScript 下拉加载防抖节流函数&quot;&gt;&lt;/a&gt;JavaScript
+        
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="https://wflin.ltd/categories/javascript/"/>
+    
+    
+      <category term="vue" scheme="https://wflin.ltd/tags/vue/"/>
+    
+      <category term="javascript" scheme="https://wflin.ltd/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue 配置</title>
+    <link href="https://wflin.ltd/vue-cli.html"/>
+    <id>https://wflin.ltd/vue-cli.html</id>
+    <published>2022-11-29T09:35:03.000Z</published>
+    <updated>2024-03-13T15:49:47.653Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Vue-脚手架打包注意事项&quot;&gt;&lt;a href=&quot;#Vue-脚手架打包注意事项&quot; class=&quot;headerlink&quot; title=&quot;Vue 脚手架打包注意事项&quot;&gt;&lt;/a&gt;Vue 脚手架打包注意事项&lt;/h1&gt;&lt;h2 id=&quot;卸载-eslint（个人喜好）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="vue打包配置" scheme="https://wflin.ltd/categories/vue%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="vue" scheme="https://wflin.ltd/tags/vue/"/>
+    
+      <category term="javascript" scheme="https://wflin.ltd/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>minio</title>
+    <link href="https://wflin.ltd/minio.html"/>
+    <id>https://wflin.ltd/minio.html</id>
+    <published>2022-11-06T00:00:00.000Z</published>
+    <updated>2024-03-13T15:49:47.621Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;firstOne&quot;&gt;&lt;a href=&quot;#firstOne&quot; class=&quot;headerlink&quot; title=&quot;firstOne&quot;&gt;&lt;/a&gt;firstOne&lt;/h1&gt;&lt;h2 id=&quot;MinIOUtils&quot;&gt;&lt;a href=&quot;#MinIOUtils&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="oos" scheme="https://wflin.ltd/categories/oos/"/>
+    
+    
+      <category term="java - oos" scheme="https://wflin.ltd/tags/java-oos/"/>
+    
+  </entry>
+  
+</feed>

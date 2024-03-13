@@ -1,0 +1,1429 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="modbus, wflin 的博客">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="GitHub中拉取源码
+git clone https://github.com/stephane/libmodbus.git
+
+
+如果无法访问 GitHub 网站，自行百度魔法。进行访问
+
+编译源码cd libmodbus # 进入目录
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>modbus | wflin 的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/lightgallery/1.6.12/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">wflin 的博客</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/AV" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>视听</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/AV" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>视听</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">wflin 的博客</div>
+        <div class="logo-desc">
+            
+            一只野生程序员
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/AV" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                视听
+            </a>
+        </li>
+        
+        <li>
+            <a href="/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/AV" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        视听
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/wflin-linux" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        modbus
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/iot/" target="_blank">
+                                <span class="chip bg-color">iot</span>
+                            </a>
+                        
+                            <a href="/tags/modbus/" target="_blank">
+                                <span class="chip bg-color">modbus</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/iot/" class="post-category" target="_blank">
+                                iot
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-06-01
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        wflin
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        8 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="GitHub中拉取源码"><a href="#GitHub中拉取源码" class="headerlink" title="GitHub中拉取源码"></a>GitHub中拉取源码</h2><blockquote>
+<p>git clone <a href="https://github.com/stephane/libmodbus.git" target="_blank" rel="noopener">https://github.com/stephane/libmodbus.git</a></p>
+</blockquote>
+<ul>
+<li>如果无法访问 GitHub 网站，自行百度魔法。进行访问</li>
+</ul>
+<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><pre class="line-numbers language-shell"><code class="language-shell">cd libmodbus # 进入目录
+./autogen.sh # 生成 congfig 文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>这里可能会报错，<code>autoreconf</code> 找不到</li>
+</ul>
+<p>解决办法：</p>
+<ul>
+<li>centos 下载：</li>
+</ul>
+<blockquote>
+<p>sudo yum install -y autoconf automake libtool</p>
+</blockquote>
+<ul>
+<li>ubuntu 下载</li>
+</ul>
+<blockquote>
+<p>sudo apt-get install -y autoconf automake libtool</p>
+</blockquote>
+<p>下载完成再次运行脚本，控制台会生成,则表示生成 config文件成功</p>
+<pre class="line-numbers language-txt"><code class="language-txt">------------------------------------------------------
+Initialized build system. You can now run ./configure 
+------------------------------------------------------<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="生成modbus的-makefile-文件"><a href="#生成modbus的-makefile-文件" class="headerlink" title="生成modbus的 makefile 文件"></a>生成modbus的 makefile 文件</h2><p>使用命令：</p>
+<ul>
+<li>个人喜欢将其安装在 usr 目录下，因为不是系统自带，是用户自己安装方便管理</li>
+</ul>
+<blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">./configure --prefix=/usr/local/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</blockquote>
+<h2 id="make-编译"><a href="#make-编译" class="headerlink" title="make 编译"></a>make 编译</h2><ul>
+<li>make 指令，-j2 为采用2个核心去编译。编译更快</li>
+</ul>
+<blockquote>
+<p>make -j2 </p>
+</blockquote>
+<ul>
+<li>这里可能会报错 需要 gcc 为c99 标准，而gcc 编译器默认支持 c89 编译器，所有此时 makefile make时会报错</li>
+</ul>
+<pre class="line-numbers language-txt"><code class="language-txt">modbus.c: In function 'read_io_status':
+modbus.c:1202:9: error: 'for' loop initial declarations are only allowed in C99 mode
+         for (unsigned int i = offset; i < offset_end; i++) {
+         ^
+modbus.c:1202:9: note: use option -std=c99 or -std=gnu99 to compile your code<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>更改命令可完成编译</li>
+</ul>
+<blockquote>
+<p>make -j2 CFLAGS=-std=c99</p>
+</blockquote>
+<h2 id="make-安装"><a href="#make-安装" class="headerlink" title="make 安装"></a>make 安装</h2><blockquote>
+<p>make install </p>
+</blockquote>
+<ul>
+<li>全程无报错则安装成功</li>
+</ul>
+<h2 id="modbus-报文结构"><a href="#modbus-报文结构" class="headerlink" title="modbus 报文结构"></a>modbus 报文结构</h2><h3 id="下行帧"><a href="#下行帧" class="headerlink" title="下行帧"></a>下行帧</h3><ul>
+<li><strong>11 01 00 13 00 25 F9 C8</strong></li>
+</ul>
+<pre><code>  01        01           0013     0025        F9C8
+从机地址    操作码        起始地址   数据数量      CRC</code></pre><ul>
+<li><p>11为从机地址（1byte），地址号17；</p>
+</li>
+<li><p>01为功能码（1bye），读线圈状态；</p>
+</li>
+<li><p>0013为寄存器起始地址（2byte），起始地址19；</p>
+<ul>
+<li><strong>备注：程序的起始地址为0。起始地址19实际上是第20号接触器。</strong></li>
+</ul>
+</li>
+<li><p>0025为数据数量（2byte），37个状态量，需要5个字节的空间；</p>
+</li>
+<li><p>F9C8为CRC码（2byte）。</p>
+<ul>
+<li><strong>释义：读取来自17号从机以20号接触器为起始的37个接触器状态。</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="上行帧"><a href="#上行帧" class="headerlink" title="上行帧"></a>上行帧</h3><ul>
+<li><p><strong>上行帧：11 01 05 CD 6B B2 0E 1B 18 8D</strong></p>
+</li>
+<li><p>11为从机地址（1byte），地址号17；</p>
+</li>
+<li><p>01为功能码（1byte），读线圈状态；</p>
+</li>
+<li><p>05为数据区字节数（1byte），5个字节；</p>
+</li>
+<li><p>CD 6B B2 0E 1B为数据（5byte），仅解析第一个数据（CD）,CD转为二进制序列为11001101，<strong>从低位到高位读</strong>，每一位对应一个接触器的状态，0为分，1为合。</p>
+</li>
+<li><p>综上数据段中的CD，表示20号接触器合位、21号分位、22号合位、23号合位、24号分位、25号分位、26号合位、27号合位；</p>
+</li>
+<li><p>18 8D为CRC码（2byte）。</p>
+<ul>
+<li><strong>释义：上送来自17号从机的接触器状态，其数据字节数为5，信息为20号接触器合位、21号分位、22号合位、23号合位、24号分位、25号分位、26号合位、27号合位……</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="ModBus-Poll"><a href="#ModBus-Poll" class="headerlink" title="ModBus Poll"></a>ModBus Poll</h2><ul>
+<li><p>Tx = 0 ：发送帧数</p>
+</li>
+<li><p>Err = 0：错误帧数</p>
+</li>
+<li><p>ID = 1：从站ID</p>
+</li>
+<li><p>F = 03 功能码</p>
+</li>
+<li><p>SR = 1000ms：轮询周期</p>
+</li>
+<li><p>No connection 无连接</p>
+<p><img src="/modbus/blog/source/_posts/modbus/image-20230426150558525.png" alt="image-20230426150558525"></p>
+</li>
+</ul>
+<h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><ul>
+<li><p>从机配置</p>
+<p><img src="/modbus/blog/source/_posts/modbus/image-20230426151108754.png" alt="image-20230426151108754"></p>
+</li>
+<li><p>常用功能码及其地址对应表</p>
+<p><img src="/modbus/blog/source/_posts/modbus/image-20230426161902783.png" alt="image-20230426161902783"></p>
+</li>
+<li><p>修改名字及其对应的值</p>
+<p><img src="/modbus/blog/source/_posts/modbus/c603849b8caf4e4ba164d1224446bf9a.png" alt=""></p>
+</li>
+</ul>
+<h2 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h2><h3 id="tcp报文"><a href="#tcp报文" class="headerlink" title="tcp报文"></a>tcp报文</h3><ul>
+<li><p>发送报文格式</p>
+<p><img src="/modbus/blog/source/_posts/modbus/image-20230427173732124.png" alt="image-20230427173732124"></p>
+</li>
+<li><p>响应报文格式</p>
+</li>
+</ul>
+<p><img src="/modbus/blog/source/_posts/modbus/image-20230427173656515.png" alt="image-20230427173656515"></p>
+<ul>
+<li><p>结构、</p>
+<ul>
+<li><p>发送报文</p>
+<pre class="line-numbers language-txt"><code class="language-txt">事务处理标识 协议标识 报文长度 单元标识 功能码 起始地址 寄存器个数
+ 008B         0000     0006     01         03      0000     000A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>
+  * 响应的报文
+
+    ```txt
+    Tx:000000-00 8B 00 00 00 06 01 03 00 00 00 0A
+    Rx:000001-00 8B 00 00 00 17 01 03 14 00 00 00 01 00 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00
+    Tx:000002-00 8C 00 00 00 06 01 03 00 00 00 0A
+    Rx:000003-00 8C 00 00 00 17 01 03 14 00 00 00 01 00 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00
+    Tx:000004-00 8D 00 00 00 06 01 03 00 00 00 0A
+    Rx:000005-00 8D 00 00 00 17 01 03 14 00 00 00 01 00 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00
+    Tx:000006-00 8E 00 00 00 06 01 03 00 00 00 0A
+    Rx:000007-00 8E 00 00 00 17 01 03 14 00 00 00 01 00 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00</code></pre><h3 id="串口报文"><a href="#串口报文" class="headerlink" title="串口报文"></a>串口报文</h3><pre class="line-numbers language-txt"><code class="language-txt">Rx:000043-01 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 A3 67
+Tx:000044-01 03 00 00 00 0A C5 CD
+Rx:000045-01 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 A3 67
+Tx:000046-01 03 00 00 00 0A C5 CD
+Rx:000047-01 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 A3 67
+Tx:000048-01 06 00 00 00 0A 09 CD
+Rx:000049-01 06 00 00 00 0A 09 CD
+Tx:000050-01 03 00 00 00 0A C5 CD
+Rx:000051-01 03 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 38 BE
+Tx:000052-01 03 00 00 00 0A C5 CD
+Rx:000053-01 03 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 38 BE
+Tx:000054-01 03 00 00 00 0A C5 CD
+Rx:000055-01 03 14 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 38 BE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="报文对比"><a href="#报文对比" class="headerlink" title="报文对比"></a>报文对比</h3><pre class="line-numbers language-txt"><code class="language-txt">00 8C 00 00 00 06 01 03 00 00 00 0A #tcp报文
+01 03 00 00 00 0A C5 CD #RTU报文<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li><h2 id="测试其他情况"><a href="#测试其他情况" class="headerlink" title="测试其他情况"></a>测试其他情况</h2></li>
+</ul>
+<h3 id="通过串口测试："><a href="#通过串口测试：" class="headerlink" title="通过串口测试："></a>通过串口测试：</h3><h4 id="主站和从站寄存器连续"><a href="#主站和从站寄存器连续" class="headerlink" title="主站和从站寄存器连续"></a>主站和从站寄存器连续</h4><table>
+<thead>
+<tr>
+<th align="center">主站读取寄存器个数</th>
+<th align="center">从站读取寄存器个数</th>
+<th align="center"></th>
+<th align="center">现象</th>
+<th align="center">响应报文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6</td>
+<td align="center">4</td>
+<td align="center">&gt;</td>
+<td align="center">02 llegal Data（非法数据地址错误）</td>
+<td align="center">异常（01 83 02 C0 F1）</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">5</td>
+<td align="center">&gt;</td>
+<td align="center">02 llegal Data（非法数据地址错误）</td>
+<td align="center">异常（01 83 02 C0 F1）</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">=</td>
+<td align="center">正常读取</td>
+<td align="center">正常</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">6</td>
+<td align="center">&lt;</td>
+<td align="center">读取正常</td>
+<td align="center">正常</td>
+</tr>
+</tbody></table>
+<h4 id="从站寄存器地址跳跃"><a href="#从站寄存器地址跳跃" class="headerlink" title="从站寄存器地址跳跃"></a>从站寄存器地址跳跃</h4><p><strong>寄存器跳号</strong>（好像那个模拟器搞不了跳号，只能看看有没有其他软件）</p>
+<h2 id="真实测试设备"><a href="#真实测试设备" class="headerlink" title="真实测试设备"></a>真实测试设备</h2><h3 id="串口"><a href="#串口" class="headerlink" title="串口"></a>串口</h3><h4 id="主要信息"><a href="#主要信息" class="headerlink" title="主要信息"></a>主要信息</h4><ul>
+<li><p><code>设备id：03，寄存器开始地址：0000，长度：2，波特率：2400，无校验位</code></p>
+</li>
+<li><p>测试报文发送报文:</p>
+<blockquote>
+<p>03 03 00 00 00 02 C5 E9</p>
+</blockquote>
+</li>
+<li><p>解析响应报文</p>
+<p><code>03 03 04 01 6B 01 03 E8 42</code></p>
+<blockquote>
+<p>03 设备id </p>
+<p>03 操作码</p>
+<p>04 数据长度</p>
+<p>016B 0103 数据 –&gt; 363 259</p>
+<p>E8 42 CRC</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="手册解释"><a href="#手册解释" class="headerlink" title="手册解释"></a>手册解释</h4><p><img src="/modbus/blog/source/_posts/modbus/image-20230427141150127.png" alt="image-20230427141150127"></p>
+<h4 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h4><p><strong>湿度</strong>：363/10 = 36.3 RH</p>
+<p><strong>温度</strong>：259/10 = 25.9 摄氏度</p>
+<h4 id="异常测试"><a href="#异常测试" class="headerlink" title="异常测试"></a>异常测试</h4><ul>
+<li>这个设备只能读2个数据，但是现在要求测试读取 4个数据，5个数据，6个数据</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>读取数据个数</th>
+<th>发送报文</th>
+<th>响应报文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td>0303 0000 0005 842B</td>
+<td>0303 0A 017B 00F7 0000 0000 0000 E20C</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0303 0000 0006 C42A</td>
+<td>0303 0C 0182 00F7 0000 0000 0000 0000 6CFC</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0303 0000 0001 85E8</td>
+<td>0303 02 018D 0071</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0303 0000 0002 C5E9</td>
+<td>0303 04 018A 00F8 F867</td>
+</tr>
+</tbody></table>
+<ul>
+<li>温湿度结论：读的寄存器大于设备本身寄存器，响应报文会填 0 补充。</li>
+</ul>
+<h2 id="通过网关"><a href="#通过网关" class="headerlink" title="通过网关"></a>通过网关</h2><p><img src="/modbus/blog/source/_posts/modbus/image-20230427163655007.png" alt="image-20230427163655007"></p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><h3 id="发送报文思路"><a href="#发送报文思路" class="headerlink" title="发送报文思路"></a>发送报文思路</h3><ul>
+<li><p>设备地址</p>
+</li>
+<li><p>操作码</p>
+</li>
+<li><p>寄存器地址</p>
+</li>
+<li><p>CRC (已完成)</p>
+</li>
+</ul>
+<h3 id="分解响应思路："><a href="#分解响应思路：" class="headerlink" title="分解响应思路："></a>分解响应思路：</h3><ul>
+<li>先把响应报文接收到</li>
+<li>分解（拆四部分）<ul>
+<li>机器地址和操作码</li>
+<li>数据长度</li>
+<li>数据</li>
+<li>CRC</li>
+</ul>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://wflin.ltd" class="b-link-green">wflin 的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/modbus.html" class="b-link-green">modbus</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/metasploit.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="metasploit">
+                        
+                        <span class="card-title">metasploit</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            metasploit
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-06-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/metasploit/" class="post-category" target="_blank">
+                                    metasploit
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/网络安全-metasploit/" target="_blank">
+                        <span class="chip bg-color">网络安全 - metasploit</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/lua.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Lua">
+                        
+                        <span class="card-title">Lua</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            redis 秒杀用到了
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/lua/" class="post-category" target="_blank">
+                                    lua
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/lua/" target="_blank">
+                        <span class="chip bg-color">lua</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1500')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: wflin 的博客<br />'
+            + '作者: wflin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2019 洪卫. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">65.5k</span> 字
+            
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/wflin-linux" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2424357107@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=2424357107&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 08, 10, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="https://cdn.bootcss.com/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.bootcss.com/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.js"></script>
+        <script src="https://cdn.bootcss.com/scrollprogress/3.0.2/scrollProgress.min.js"></script>
+        <script src="https://cdn.bootcss.com/lightgallery/1.6.12/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "🙈~溜溜球🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧骗你的～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+            <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+            <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+            <script type="text/javascript" src="/js/fireworks.js"></script>
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+            <script src="/js/wenzi.js" type="text/javascript"></script>
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
+            <!--  在线聊天位置自定义  洪卫 shw2018 add 2019.09.13  -->
+            <script> 
+                $(document).ready(function () {
+
+                    setInterval(change_Tidio, 50);  
+                    function change_Tidio() { 
+
+                        var tidio=$("#tidio-chat iframe");
+                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
+                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        } 
+                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+
+                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
+                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
+                        }
+                    } 
+                }); 
+            </script>
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script></body>
+</html>

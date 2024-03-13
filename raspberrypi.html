@@ -1,0 +1,1439 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="RaspberryPi, wflin 的博客">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="下载和烧写镜像
+从官网下载树莓派镜像，使用烧写工具 balena-etcher 烧录镜像
+
+串口登录
+将系统烧写到 SD 卡后，重新拔插 SD 卡，连接到系统 usb，电脑会出现树莓派的 boot 分区
+
+修改 config.txt 文件，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>RaspberryPi | wflin 的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/lightgallery/1.6.12/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">wflin 的博客</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/AV" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>视听</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/AV" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>视听</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">wflin 的博客</div>
+        <div class="logo-desc">
+            
+            一只野生程序员
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/AV" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                视听
+            </a>
+        </li>
+        
+        <li>
+            <a href="/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/AV" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        视听
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/wflin-linux" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/wflin-linux" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        RaspberryPi
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/c/" target="_blank">
+                                <span class="chip bg-color">c</span>
+                            </a>
+                        
+                            <a href="/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/嵌入式/" class="post-category" target="_blank">
+                                嵌入式
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-06-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        wflin
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        10 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="下载和烧写镜像"><a href="#下载和烧写镜像" class="headerlink" title="下载和烧写镜像"></a>下载和烧写镜像</h1><ul>
+<li>从官网下载树莓派镜像，使用烧写工具 balena-etcher 烧录镜像</li>
+</ul>
+<h2 id="串口登录"><a href="#串口登录" class="headerlink" title="串口登录"></a>串口登录</h2><ul>
+<li><p>将系统烧写到 SD 卡后，重新拔插 SD 卡，连接到系统 usb，电脑会出现树莓派的 boot 分区</p>
+</li>
+<li><p>修改 config.txt 文件，将内容追加到文件末尾（停止了蓝牙，解除了对串口的占用）</p>
+<blockquote>
+<p>dtoverlay=pi3-miniuart-bt</p>
+</blockquote>
+</li>
+<li><p>覆盖 cmdline.txt，万一失效，所以建议先把这个文件备份一份</p>
+<p><strong>原来的</strong></p>
+<blockquote>
+<p>console=serial0,115200 console=tty1 root=PARTUUID=738a4d67-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet init=/usr/lib/raspi-config/init_resize.sh</p>
+</blockquote>
+<p><strong>修改后</strong></p>
+<blockquote>
+<p>dwc_otg.lpm_enable=0 console=tty1 console=serial0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait</p>
+</blockquote>
+</li>
+<li><p>使用 USB-TTL转换模块如图连接线,TTL 的 TXD 连接到树莓派的 RXD，另一根也反向接线便可</p>
+<img src="/raspberrypi/aHR0cHM6Ly9zeWpzeHhqeS5naXRodWIuaW8vbXlibG9nL2Fzc2V0cy8xLzIwMTgwNjIyLTk5ZjRjNWE1LnBuZw.png" title="aHR0cHM6Ly9zeWpzeHhqeS5naXRodWIuaW8vbXlibG9nL2Fzc2V0cy8xLzIwMTgwNjIyLTk5ZjRjNWE1LnBuZw">
+
+
+
+</li>
+</ul>
+<ul>
+<li>线接好后插入电脑（电脑有安装了 USB 转串口驱动）在设备管理器看看使用的是哪个 COMS，使用终端工具选择串口和波特率进行连接便可</li>
+</ul>
+<h2 id="SSH登录-我常用"><a href="#SSH登录-我常用" class="headerlink" title="SSH登录(我常用)"></a>SSH登录(我常用)</h2><ul>
+<li><p>烧写好镜像后，一样把 SD 卡插入电脑，显示出 boot 分区</p>
+</li>
+<li><p>在boot目录添加两个文件</p>
+<ul>
+<li><p>ssh（不要后缀，直接名字就叫 ssh，这样就可以开启 ssh）</p>
+</li>
+<li><p>创建并添加一个文件 <code>wpa_supplicant.conf</code></p>
+<pre class="line-numbers language-txt"><code class="language-txt">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=CN
+
+network={
+        ssid="无线网名称"
+        psk="无线网密码"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>添加好两个文件后直接上电，在路由器的管理后台(或者 windows 直接开热点，连接Windows的热点)查看树莓派的IP</p>
+</li>
+<li><p>然后使用ssh 登录到树莓派</p>
+</li>
+<li><p>默认账户：pi</p>
+</li>
+<li><p>默认密码：raspberry</p>
+</li>
+</ul>
+<h1 id="库编程"><a href="#库编程" class="headerlink" title="库编程"></a>库编程</h1><img src="/raspberrypi/image-20230808141416928.png" title="image-20230808141416928">
+
+<h2 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h2><ul>
+<li><p><strong>静态函数库</strong>：是在程序执行前（编译）就加入到目标程序中去了 ；</p>
+</li>
+<li><p><strong>优点</strong>：运行快，发布程序无需提供静态库，因为已经在app中，移植方便</p>
+</li>
+<li><p><strong>缺点</strong>：编译生成的文件大</p>
+</li>
+</ul>
+<h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><ul>
+<li><strong>动态函数库</strong>，是在程序执行时动态（临时）由目标程序去调用</li>
+<li><strong>缺点</strong>： 运行慢</li>
+<li><strong>优点</strong>： 小</li>
+</ul>
+<img src="/raspberrypi/image-20230808141527323.png" title="image-20230808141527323">
+
+
+
+<h2 id="生成库"><a href="#生成库" class="headerlink" title="生成库"></a>生成库</h2><h3 id="静态库-1"><a href="#静态库-1" class="headerlink" title="静态库"></a>静态库</h3><ul>
+<li><p>静态库的生成：格式：xxxx.a </p>
+<pre class="line-numbers language-shell"><code class="language-shell">gcc calcufuncs.c -c 生成xxx.o文件
+
+ar rcs libcalcufunc.a calcufuncs.o xxx.o文件生成xxx.a静态库文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="动态库-1"><a href="#动态库-1" class="headerlink" title="动态库"></a>动态库</h3><ul>
+<li><p>动态库的生成：格式：xxxxx.so</p>
+<pre class="line-numbers language-shell"><code class="language-shell">gcc -shared -fpic calcufuncs.c -o libcalc.so
+
+-shared 指定生成动态库
+-fpic 标准，fPIC 选项作用于编译阶段,在生成目标文件时就得使用该选项,以生成位置无关的代码。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="库的使用"><a href="#库的使用" class="headerlink" title="库的使用"></a>库的使用</h2><h3 id="静态库-2"><a href="#静态库-2" class="headerlink" title="静态库"></a>静态库</h3><ul>
+<li><pre class="line-numbers language-shell"><code class="language-shell">gcc calculatorT.c -lcalcufunc -L ./ -o mainProStatic
+
+-lcalcufunc -l #是制定要用的动态库，库名砍头去尾
+-L #告诉gcc编译器从-L制定的路径去找静态库。默认是从/usr/lib  /usr/local/lib去找<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>eg:</p>
+<blockquote>
+<p>gcc calculatorT.c -lcalc -L ./ -o main libcalc.so</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="动态库-2"><a href="#动态库-2" class="headerlink" title="动态库"></a>动态库</h3><p><a href="[linux动态库(.so)搜索路径(目录">推荐阅读博文</a>设置方法 - zhangzheng08pku - 博客园 (cnblogs.com)](<a href="https://www.cnblogs.com/progamming/p/13043652.html" target="_blank" rel="noopener">https://www.cnblogs.com/progamming/p/13043652.html</a>))</p>
+<ul>
+<li><p>Linux动态库的默认搜索路径是/lib和/usr/lib。动态库被创建后，一般都复制到这两个目录中。当程序执行时需要某动态库，并且该动 态库还未加载到内存中，则系统会自动到这两个默认搜索路径中去查找相应的动态库文件，然后加载该文件到内存中，这样程序就可以使用该动态库中的函数，以及该动态库的其它资源了。在Linux 中，动态库的搜索路径除了默认的搜索路径外，还可以通过以下三种方法来指定。</p>
+<ul>
+<li><p>在配置文件/etc/ld.so.conf中指定动态库搜索路径；</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vi /etc/ld.so.conf #添加 lib目录（绝对路径）
+ldconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>通过环境变量LD_LIBRARY_PATH指定动态库搜索路径；</p>
+<pre class="line-numbers language-shell"><code class="language-shell">export LD_LIBRARY_PATH=”LD_LIBRARY_PATH:libpath”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>在编译目标代码时指定该程序的动态库搜索路径。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">还可以在编译目标代码时指定程序的动态库搜索路径。通过gcc 的参数”-Wl,-rpath,”指定<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="gpio"><a href="#gpio" class="headerlink" title="gpio"></a>gpio</h1><pre class="line-numbers language-txt"><code class="language-txt"> +-----+-----+---------+------+---+---Pi 3B--+---+------+---------+-----+-----+
+ | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+ +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+ |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |
+ |   2 |   8 |   SDA.1 |   IN | 1 |  3 || 4  |   |      | 5v      |     |     |
+ |   3 |   9 |   SCL.1 |   IN | 1 |  5 || 6  |   |      | 0v      |     |     |
+ |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | ALT0 | TxD     | 15  | 14  |
+ |     |     |      0v |      |   |  9 || 10 | 1 | ALT0 | RxD     | 16  | 15  |
+ |  17 |   0 | GPIO. 0 |   IN | 0 | 11 || 12 | 0 | IN   | GPIO. 1 | 1   | 18  |
+ |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |
+ |  22 |   3 | GPIO. 3 |   IN | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |
+ |     |     |    3.3v |      |   | 17 || 18 | 0 | IN   | GPIO. 5 | 5   | 24  |
+ |  10 |  12 |    MOSI |   IN | 0 | 19 || 20 |   |      | 0v      |     |     |
+ |   9 |  13 |    MISO |   IN | 0 | 21 || 22 | 0 | IN   | GPIO. 6 | 6   | 25  |
+ |  11 |  14 |    SCLK |   IN | 0 | 23 || 24 | 1 | IN   | CE0     | 10  | 8   |
+ |     |     |      0v |      |   | 25 || 26 | 1 | IN   | CE1     | 11  | 7   |
+ |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |
+ |   5 |  21 | GPIO.21 |   IN | 1 | 29 || 30 |   |      | 0v      |     |     |
+ |   6 |  22 | GPIO.22 |   IN | 1 | 31 || 32 | 0 | IN   | GPIO.26 | 26  | 12  |
+ |  13 |  23 | GPIO.23 |   IN | 0 | 33 || 34 |   |      | 0v      |     |     |
+ |  19 |  24 | GPIO.24 |   IN | 0 | 35 || 36 | 0 | IN   | GPIO.27 | 27  | 16  |
+ |  26 |  25 | GPIO.25 |   IN | 0 | 37 || 38 | 0 | IN   | GPIO.28 | 28  | 20  |
+ |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |
+ +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+ | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+ +-----+-----+---------+------+---+---Pi 3B--+---+------+---------+-----+-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h1><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>编译高版本的可以使用这个</p>
+<p><a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads" target="_blank" rel="noopener">https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads</a></p>
+<p>交叉编译工具链</p>
+<p><a href="https://github.com/raspberrypi/tools.git" target="_blank" rel="noopener">https://github.com/raspberrypi/tools.git</a></p>
+<p>树莓派 linux 源码</p>
+<p><a href="https://github.com/raspberrypi/linux.git" target="_blank" rel="noopener">https://github.com/raspberrypi/linux.git</a></p>
+<h3 id="临时配置"><a href="#临时配置" class="headerlink" title="临时配置"></a>临时配置</h3><ol>
+<li><p>打印系统环境变量</p>
+<blockquote>
+<p>echo $PATH</p>
+</blockquote>
+</li>
+<li><p>把 tools bin 追加到PATH</p>
+<blockquote>
+<p>export PATH=$PATH:(toolsPATH)</p>
+</blockquote>
+</li>
+<li><p>shell 脚本</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export PATH="$PATH:$DIR/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/"
+export ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>   或者</p>
+<pre class="line-numbers language-shell"><code class="language-shell">   #!/bin/bash
+
+   # 获取脚本所在目录的绝对路径
+   SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+   # 设置临时变量
+   TEMP_VAR="$SCRIPT_DIR/tools/arm-bcm2708/arm-linux-gnueabihf/bin"
+
+   # 将 TEMP_VAR 变量中的路径添加到 PATH 中
+   export PATH="$TEMP_VAR:$PATH"
+
+   export ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7
+
+   # 输出变量值
+   echo "New PATH: $PATH"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li><p>使用</p>
+<blockquote>
+<p>source env.sh</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="永久配置"><a href="#永久配置" class="headerlink" title="永久配置"></a>永久配置</h3><p>则是将上面的shell 放到 profile 文件中</p>
+<h1 id="内核编译"><a href="#内核编译" class="headerlink" title="内核编译"></a>内核编译</h1><p><a href="https://blog.csdn.net/nicekwell/article/details/78482833" target="_blank" rel="noopener">树莓派-内核开发-说明 下载代码 编译 替换内核_nicekwell的博客-CSDN博客</a>)</p>
+<p>编译64位 <a href="https://blog.csdn.net/m0_49475727/article/details/109247979" target="_blank" rel="noopener">自己制作树莓派3B+ 64位系统（编译内核+rootfs制作）_自己复刻树莓派_请叫我雯子小姐的小爷的博客-CSDN博客</a></p>
+<h3 id="安装的软件"><a href="#安装的软件" class="headerlink" title="安装的软件"></a>安装的软件</h3><pre class="line-numbers language-shell"><code class="language-shell">sudo apt-get install bc -y
+sudo apt-get install libncurses5-dev libncursesw5-dev -y
+sudo apt-get install zlib1g:i386 -y
+sudo apt-get install libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 -y
+sudo apt install flex -y
+sudo apt install bison -y
+sudo apt-get install libelf-dev -y
+sudo apt-get install lib32z1 -y
+sudo apt-get install libgmp-dev -y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>踩坑 </p>
+<ul>
+<li><code>Unable to locate package zlib1g:i386</code></li>
+</ul>
+<p>解决</p>
+<ul>
+<li>sudo dpkg –add-architecture i386</li>
+<li>sudo apt-get update</li>
+<li>sudo apt-get install zlib1g:i386 -y</li>
+</ul>
+<h3 id="编译指令"><a href="#编译指令" class="headerlink" title="编译指令"></a>编译指令</h3><ul>
+<li>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig</li>
+</ul>
+<h4 id="执行-menuconfig"><a href="#执行-menuconfig" class="headerlink" title="执行 menuconfig"></a>执行 menuconfig</h4><pre class="line-numbers language-shell"><code class="language-shell">ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7 make menuconfig
+#指定arm架构  指定编译器                       树莓派            主要核心指令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><pre class="line-numbers language-shell"><code class="language-shell">ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7 make -j2 zImage modules dtbs >&1 | tee build.log
+以n进程编译。不指明几进程的话则默认以单进程编译。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>zImage：生成内核镜像</li>
+<li>modules：生成驱动模块</li>
+<li>dtbs：配置文件</li>
+</ul>
+<p>编译成功会生成 vmlinux 源码树目录，失败则无，编译成功后，目标 zimage 镜像 arch/arm/boot目录下，需要打包 zImage 成树莓派可用的 xxx.img</p>
+<h5 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h5><p>很明显编译不会那么顺利…….</p>
+<ul>
+<li>错误：</li>
+</ul>
+<pre class="line-numbers language-txt"><code class="language-txt">error: #error New address family defined, please update secclass_map.
+  246 | #error New address family defined, please update secclass_map.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>解决办法：</li>
+</ul>
+<p><a href="https://lore.kernel.org/selinux/20190225005528.28371-1-paulo@paulo.ac/" target="_blank" rel="noopener">[PATCH] selinux: use kernel linux/socket.h definitions for PF_MAX - Paulo Alcantara</a></p>
+<ul>
+<li>错误</li>
+</ul>
+<pre class="line-numbers language-txt"><code class="language-txt">No rule to make target 'debian/canonical-certs.pem', needed by 'certs/x509_certificate_list'.  Stop.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>解决办法</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_36393978/article/details/118157426" target="_blank" rel="noopener">内核错误: No rule to make target ‘debian/canonical-certs.pem‘, needed by ‘certs/x509_certificate_list‘_no rule to make target ‘debian/canonical-certs.pem_Imagine Miracle的博客-CSDN博客</a></p>
+<h4 id="打包-zimage-镜像"><a href="#打包-zimage-镜像" class="headerlink" title="打包 zimage 镜像"></a>打包 zimage 镜像</h4><ul>
+<li><p>直接用linux源码包里的工具：</p>
+<blockquote>
+<p>./scripts/mkknlimg arch/arm/boot/zImage ./kernel_new.img</p>
+</blockquote>
+</li>
+<li><p>复制到内核</p>
+<blockquote>
+<p>sudo cp kernel_new.img /home/ubuntu/raspberrypi/boot/kernel7.img</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="数据拷贝"><a href="#数据拷贝" class="headerlink" title="数据拷贝"></a>数据拷贝</h3><ul>
+<li>mkdir  boot data</li>
+</ul>
+<h4 id="挂载sd卡"><a href="#挂载sd卡" class="headerlink" title="挂载sd卡"></a>挂载sd卡</h4><ul>
+<li>mount /dev/sdb1 boot       一个 fat 分区，是 boot 相关的内容，kernel 的 img</li>
+<li>mount /dev/sdb2 data       一个是 ext4 分区，也就是系统的根目录分区</li>
+</ul>
+<h4 id="安装-moudles"><a href="#安装-moudles" class="headerlink" title="安装 moudles"></a>安装 moudles</h4><ul>
+<li><p>设备驱动文件：hdmi，usb，wifi，io ……</p>
+<blockquote>
+<p>sudo ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7 make INSTALL_MOD_PATH=(根目录)[ext4] modules_install</p>
+</blockquote>
+</li>
+<li><p>我的指令</p>
+<blockquote>
+<p>sudo ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KERNEL=kernel7 make INSTALL_MOD_PATH=/home/ubuntu/raspberrypi/data modules_install</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="更新-kernel-img-文件"><a href="#更新-kernel-img-文件" class="headerlink" title="更新 kernel.img 文件"></a>更新 kernel.img 文件</h3><p>备份原来的镜像</p>
+<blockquote>
+<p>cp kernel7.img kernel7.old.img</p>
+</blockquote>
+<h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>将新镜像复制到boot</p>
+<blockquote>
+<p>cp kernel_new.img boot/kernel.img</p>
+</blockquote>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>将新镜像复制到boot</p>
+<blockquote>
+<p>cp kernel_new.img boot/kernel8.img</p>
+</blockquote>
+<p>编辑 boot/config.txt 文件，在最后加入一行：</p>
+<blockquote>
+<p>kernel=kernel_new.img </p>
+</blockquote>
+<h3 id="复制其他相关文件"><a href="#复制其他相关文件" class="headerlink" title="复制其他相关文件"></a>复制其他相关文件</h3><pre class="line-numbers language-shell"><code class="language-shell">cp arch/arm/boot/dts/*.*dtb* [fat]/
+cp arch/arm/boot/dts/overlays/*.dtb* [fat]/overlays/
+cp arch/arm/boot/dts/overlays/README [fat]/overlays/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>我的指令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo cp arch/arm/boot/dts/*.dtb /home/ubuntu/raspberrypi/boot/
+sudo cp arch/arm/boot/dts/overlays/*.dtb* /home/ubuntu/raspberrypi/boot/overlays/
+sudo cp arch/arm/boot/dts/overlays/README /home/ubuntu/raspberrypi/boot/overlays/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>更新完成后插回树莓派即可开机，开机后可以用 uname -a 命令查看kernel信息已经改变</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://wflin.ltd" class="b-link-green">wflin 的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/raspberrypi.html" class="b-link-green">RaspberryPi</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/wireshark.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="wireshark">
+                        
+                        <span class="card-title">wireshark</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            wireshark 常用指令
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-07-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/wireshark/" class="post-category" target="_blank">
+                                    wireshark
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/wireshark/" target="_blank">
+                        <span class="chip bg-color">wireshark</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/smba.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="samba">
+                        
+                        <span class="card-title">samba</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            samba 服务安装和关联windwos
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/iot/" target="_blank">
+                        <span class="chip bg-color">iot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1500')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: wflin 的博客<br />'
+            + '作者: wflin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2019 洪卫. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">65.5k</span> 字
+            
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/wflin-linux" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2424357107@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=2424357107&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 08, 10, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="https://cdn.bootcss.com/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.bootcss.com/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.js"></script>
+        <script src="https://cdn.bootcss.com/scrollprogress/3.0.2/scrollProgress.min.js"></script>
+        <script src="https://cdn.bootcss.com/lightgallery/1.6.12/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "🙈~溜溜球🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧骗你的～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+            <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+            <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+            <script type="text/javascript" src="/js/fireworks.js"></script>
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+            <script src="/js/wenzi.js" type="text/javascript"></script>
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
+            <!--  在线聊天位置自定义  洪卫 shw2018 add 2019.09.13  -->
+            <script> 
+                $(document).ready(function () {
+
+                    setInterval(change_Tidio, 50);  
+                    function change_Tidio() { 
+
+                        var tidio=$("#tidio-chat iframe");
+                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
+                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        } 
+                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+
+                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
+                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
+                        }
+                    } 
+                }); 
+            </script>
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":1}});</script></body>
+</html>
